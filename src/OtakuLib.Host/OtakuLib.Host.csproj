@@ -6,7 +6,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>OtakuLib</AssemblyName>
     <StartupObject>OtakuLib.Host.Bootstrap.Program</StartupObject>
-    <ApplicationIcon />
+    <ApplicationIcon>OtakuLib.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
