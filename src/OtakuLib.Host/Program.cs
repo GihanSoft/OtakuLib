@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using OtakuLib.View;
 
-namespace OtakuLib.Host.Bootstrap
+namespace OtakuLib.Host
 {
     public static class Program
     {
@@ -30,7 +30,6 @@ namespace OtakuLib.Host.Bootstrap
                 .GetAwaiter()
                 .GetResult();
 
-            ActivatorUtilities.GetServiceOrCreateInstance<Logic.Bootstrap.InitializerUI>(serviceProvider).FullInitialize();
             ActivatorUtilities.GetServiceOrCreateInstance<View.Bootstrap.InitializerUI>(serviceProvider).FullInitialize();
 
             var win = ActivatorUtilities.GetServiceOrCreateInstance<Win>(serviceProvider);
