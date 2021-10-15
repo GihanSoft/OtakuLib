@@ -8,7 +8,6 @@ namespace OtakuLib.Logic.Bootstrap
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            throw new System.NotImplementedException();
         }
     }
 }
