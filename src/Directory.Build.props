@@ -15,6 +15,10 @@
     <Deterministic>true</Deterministic>
     <Features>strict</Features>
     <ReportAnalyzer>true</ReportAnalyzer>
+
+    <Authors>Muhammad Babayi</Authors>
+    <Company>GihanSoft</Company>
+    <Copyright>Copyright (c) 2021 GihanSoft. All rights reserved.</Copyright>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
