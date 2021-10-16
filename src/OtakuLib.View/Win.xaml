@@ -1,12 +1,16 @@
-﻿<Window x:Class="OtakuLib.View.Win"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OtakuLib.View"
-        mc:Ignorable="d"
-        Title="Win" Height="450" Width="800">
+﻿<mah:MetroWindow
+    x:Class="OtakuLib.View.Win"
+    x:FieldModifier="private"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    mc:Ignorable="d"
+    x:Name="This"
+    WindowState="Maximized"
+    Title="Win" Height="450" Width="800">
     <Grid>
 
     </Grid>
-</Window>
+</mah:MetroWindow>

@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GihanSoft.ApplicationFrameworkBase\GihanSoft.ApplicationFrameworkBase.csproj" />
     <ProjectReference Include="..\OtakuLib.Logic\OtakuLib.Logic.csproj" />
   </ItemGroup>
