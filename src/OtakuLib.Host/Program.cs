@@ -65,6 +65,9 @@ namespace OtakuLib.Host
             ActivatorUtilities.GetServiceOrCreateInstance<Logic.Bootstrap.ServiceSetup>(serviceProvider).ConfigureServices(services);
             ActivatorUtilities.GetServiceOrCreateInstance<View.Bootstrap.ServiceSetup>(serviceProvider).ConfigureServices(services);
 
+            serviceProvider.Dispose();
+            serviceProvider = services.BuildServiceProvider();
+
             ActivatorUtilities.GetServiceOrCreateInstance<Logic.Bootstrap.Initializer>(serviceProvider).FullInitialize();
             ActivatorUtilities.GetServiceOrCreateInstance<View.Bootstrap.Initializer>(serviceProvider).FullInitialize();
 
