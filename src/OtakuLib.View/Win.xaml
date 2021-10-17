@@ -11,7 +11,8 @@
     x:Name="This"
     WindowState="Maximized"
     Title="{Binding Title}"
-    Height="450" Width="800">
+    Height="450" Width="800"
+    TitleCharacterCasing="Normal">
     <Grid>
 
     </Grid>
