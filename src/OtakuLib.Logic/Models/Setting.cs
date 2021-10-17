@@ -8,7 +8,12 @@
             Value = value;
         }
 
+        public Setting(string id)
+        {
+            Id = id;
+        }
+
         public string Id { get; set; }
-        public object Value { get; set; }
+        public object? Value { get; set; }
     }
 }

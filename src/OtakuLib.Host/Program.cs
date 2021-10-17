@@ -30,7 +30,8 @@ namespace OtakuLib.Host
                 .GetAwaiter()
                 .GetResult();
 
-            ActivatorUtilities.GetServiceOrCreateInstance<View.Bootstrap.InitializerUI>(serviceProvider).FullInitialize();
+            ActivatorUtilities.GetServiceOrCreateInstance<View.Bootstrap.InitializerUI>(serviceProvider)
+                .FullInitialize(serviceProvider);
 
             var win = ActivatorUtilities.GetServiceOrCreateInstance<Win>(serviceProvider);
             return app.Run(win);
@@ -68,8 +69,10 @@ namespace OtakuLib.Host
             serviceProvider.Dispose();
             serviceProvider = services.BuildServiceProvider();
 
-            ActivatorUtilities.GetServiceOrCreateInstance<Logic.Bootstrap.Initializer>(serviceProvider).FullInitialize();
-            ActivatorUtilities.GetServiceOrCreateInstance<View.Bootstrap.Initializer>(serviceProvider).FullInitialize();
+            ActivatorUtilities.GetServiceOrCreateInstance<Logic.Bootstrap.Initializer>(serviceProvider)
+                .FullInitialize(serviceProvider);
+            ActivatorUtilities.GetServiceOrCreateInstance<View.Bootstrap.Initializer>(serviceProvider)
+                .FullInitialize(serviceProvider);
 
             return serviceProvider;
         }
@@ -102,10 +105,19 @@ namespace OtakuLib.Host
                 EnvironmentVariableTarget.Process);
         }
 
-        private static void FullInitialize(this IInitializer initializer)
+        private static void FullInitialize(this IInitializer initializer, ServiceProvider serviceProvider)
         {
-            initializer.FirstRunInitialize();
-            initializer.UpdateInitialize();
+            var conditionProvider = serviceProvider.GetRequiredService<IInitializeConditionProvider>();
+            if (conditionProvider.IsFirstRun())
+            {
+                initializer.FirstRunInitialize();
+            }
+
+            if (conditionProvider.IsUpdate())
+            {
+                initializer.UpdateInitialize();
+            }
+
             initializer.Initialize();
         }
     }

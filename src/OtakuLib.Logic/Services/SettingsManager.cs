@@ -15,7 +15,7 @@ namespace OtakuLib.Logic.Services
             this.db = db;
         }
 
-        public TSetting? Find<TSetting>(string key)
+        public TSetting? Fetch<TSetting>(string key)
             where TSetting : class
         {
             if (string.IsNullOrWhiteSpace(key))
@@ -66,7 +66,7 @@ namespace OtakuLib.Logic.Services
 
     public interface ISettingsManager
     {
-        TSetting? Find<TSetting>(string key) where TSetting : class;
+        TSetting? Fetch<TSetting>(string key) where TSetting : class;
         void Save<TSetting>(string key, TSetting setting) where TSetting : class;
     }
 }

@@ -27,10 +27,18 @@ namespace OtakuLib.Logic.Bootstrap
 
         public void ConfigureServices(IServiceCollection services)
         {
+            AddVersion(services);
             AddDatabase(services);
             services.AddSingleton<ISettingsManager, SettingsManager>();
-
+            services.AddTransient<IInitializeConditionProvider, InitializeConditionProvider>();
             AddViewModels(services);
+        }
+
+        public static void AddVersion(IServiceCollection services)
+        {
+            var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            var version = assembly.GetName().Version ?? throw new();
+            services.AddSingleton(version);
         }
 
         private void AddDatabase(IServiceCollection services)
@@ -43,7 +51,8 @@ namespace OtakuLib.Logic.Bootstrap
             new FileInfo(connectionString.Filename).Directory?.EnsureDirectoryExist();
 
             services
-                .AddSingleton<ConnectionString>()
+                .AddSingleton(connectionString)
+                .AddSingleton(BsonMapper.Global)
                 .AddSingleton<ILiteDatabase, LiteDatabase>()
                 .AddSingleton<AppDB>();
         }
