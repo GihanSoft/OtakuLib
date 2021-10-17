@@ -5,15 +5,43 @@ using System.Reflection;
 
 using GihanSoft.ApplicationFrameworkBase;
 
+using LiteDB;
+
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+using OtakuLib.Logic.Services;
 
 namespace OtakuLib.Logic.Bootstrap
 {
     public class ServiceSetup : IServiceSetup
     {
+        private readonly IConfiguration configuration;
+
+        public ServiceSetup(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
+            AddDatabase(services);
+            services.AddSingleton<ISettingsManager, SettingsManager>();
+
             AddViewModels(services);
+        }
+
+        private void AddDatabase(IServiceCollection services)
+        {
+            var connectionStringSection = this.configuration.GetSection("connectionString");
+            var connectionString = connectionStringSection.Get<ConnectionString>();
+            connectionString.Filename = connectionString.Filename.Replace('/', '\\');
+            connectionString.Filename = Environment.ExpandEnvironmentVariables(connectionString.Filename);
+
+            services
+                .AddSingleton<ConnectionString>()
+                .AddSingleton<ILiteDatabase, LiteDatabase>()
+                .AddSingleton<AppDB>();
         }
 
         public static void AddViewModels(IServiceCollection services)
