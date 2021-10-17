@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using OtakuLib.Logic.Services;
+using OtakuLib.Logic.Utilities;
 
 namespace OtakuLib.Logic.Bootstrap
 {
@@ -33,10 +35,12 @@ namespace OtakuLib.Logic.Bootstrap
 
         private void AddDatabase(IServiceCollection services)
         {
-            var connectionStringSection = this.configuration.GetSection("connectionString");
+            var connectionStringSection = configuration.GetSection("connectionString");
             var connectionString = connectionStringSection.Get<ConnectionString>();
             connectionString.Filename = connectionString.Filename.Replace('/', '\\');
             connectionString.Filename = Environment.ExpandEnvironmentVariables(connectionString.Filename);
+
+            new FileInfo(connectionString.Filename).Directory?.EnsureDirectoryExist();
 
             services
                 .AddSingleton<ConnectionString>()
