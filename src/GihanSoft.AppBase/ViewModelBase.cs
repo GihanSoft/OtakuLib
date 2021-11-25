@@ -10,7 +10,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
 
     protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
-        if (propertyName is null) { throw new ArgumentNullException(nameof(propertyName)); }
+        ArgumentNullException.ThrowIfNull(propertyName);
 
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

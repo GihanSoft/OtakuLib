@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace OtakuLib.View.Bootstrap
+namespace OtakuLib.WFP.Bootstrap
 {
     public class ServiceSetup : IServiceSetup
     {

@@ -3,9 +3,9 @@
 using GihanSoft.ApplicationFrameworkBase;
 
 using OtakuLib.Logic.Services;
-using OtakuLib.View.Models.Settings;
+using OtakuLib.WFP.Models.Settings;
 
-namespace OtakuLib.View.Bootstrap
+namespace OtakuLib.WFP.Bootstrap
 {
     public class Initializer : IInitializer
     {

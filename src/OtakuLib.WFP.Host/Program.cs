@@ -10,9 +10,9 @@ using GihanSoft.ApplicationFrameworkBase;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using OtakuLib.View;
+using OtakuLib.WFP;
 
-namespace OtakuLib.Host
+namespace OtakuLib.WFP.Host
 {
     public static class Program
     {

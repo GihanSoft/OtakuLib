@@ -1,6 +1,6 @@
 ﻿using OtakuLib.Logic.ViewModels;
 
-namespace OtakuLib.View
+namespace OtakuLib.WFP
 {
     /// <summary>
     /// Interaction logic for Win.xaml

@@ -1,6 +1,6 @@
 ﻿using GihanSoft.ApplicationFrameworkBase;
 
-namespace OtakuLib.View.Bootstrap
+namespace OtakuLib.WFP.Bootstrap
 {
     public class InitializerUI : IInitializer
     {

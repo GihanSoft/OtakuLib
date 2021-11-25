@@ -7,4 +7,6 @@ public interface IInitializer
     void UpdateInitialize();
 
     void Initialize();
+
+    void LateInitialize();
 }
