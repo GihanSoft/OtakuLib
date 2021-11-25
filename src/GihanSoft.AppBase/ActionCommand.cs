@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace GihanSoft.ApplicationFrameworkBase;
+namespace GihanSoft.AppBase;
 
 public class ActionCommand<TInput> : ICommand
 {

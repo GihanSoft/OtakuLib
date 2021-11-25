@@ -1,4 +1,4 @@
-﻿namespace GihanSoft.ApplicationFrameworkBase.Exceptions;
+﻿namespace GihanSoft.AppBase.Exceptions;
 
 [System.Serializable]
 public class UnExpectedNullException : System.NullReferenceException

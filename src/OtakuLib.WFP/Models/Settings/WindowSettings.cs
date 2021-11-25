@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace OtakuLib.WFP.Models.Settings
+namespace OtakuLib.WPF.Models.Settings
 {
     public record WindowSettings
     {

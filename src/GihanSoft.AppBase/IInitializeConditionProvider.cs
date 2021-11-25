@@ -1,4 +1,4 @@
-﻿namespace GihanSoft.ApplicationFrameworkBase;
+﻿namespace GihanSoft.AppBase;
 
 public interface IInitializeConditionProvider
 {

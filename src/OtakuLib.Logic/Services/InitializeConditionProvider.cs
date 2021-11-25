@@ -1,6 +1,6 @@
 ﻿using System;
 
-using GihanSoft.ApplicationFrameworkBase;
+using GihanSoft.AppBase;
 
 using OtakuLib.Logic.Models.Settings;
 using OtakuLib.Logic.Utilities;

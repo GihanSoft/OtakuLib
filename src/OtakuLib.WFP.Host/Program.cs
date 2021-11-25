@@ -5,14 +5,16 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
-using GihanSoft.ApplicationFrameworkBase;
+using GihanSoft.AppBase;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using OtakuLib.WFP;
+using OtakuLib.WFP.Host;
+using OtakuLib.WPF.Host;
 
-namespace OtakuLib.WFP.Host
+namespace OtakuLib.WPF.Host
 {
     public static class Program
     {

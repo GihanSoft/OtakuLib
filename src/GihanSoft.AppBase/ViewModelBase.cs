@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace GihanSoft.ApplicationFrameworkBase;
+namespace GihanSoft.AppBase;
 
 public abstract class ViewModelBase : INotifyPropertyChanged
 {

@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 
-using GihanSoft.ApplicationFrameworkBase;
+using GihanSoft.AppBase;
 
 using OtakuLib.Logic.Services;
-using OtakuLib.WFP.Models.Settings;
+using OtakuLib.WPF.Models.Settings;
 
-namespace OtakuLib.WFP.Bootstrap
+namespace OtakuLib.WPF.Bootstrap
 {
     public class Initializer : IInitializer
     {

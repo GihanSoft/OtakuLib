@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using GihanSoft.ApplicationFrameworkBase;
+using GihanSoft.AppBase;
 
 using LiteDB;
 

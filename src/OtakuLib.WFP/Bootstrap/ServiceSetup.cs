@@ -1,8 +1,8 @@
-﻿using GihanSoft.ApplicationFrameworkBase;
+﻿using GihanSoft.AppBase;
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace OtakuLib.WFP.Bootstrap
+namespace OtakuLib.WPF.Bootstrap
 {
     public class ServiceSetup : IServiceSetup
     {
