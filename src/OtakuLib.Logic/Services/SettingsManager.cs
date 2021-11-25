@@ -1,69 +1,74 @@
-﻿using LiteDB;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using GihanSoft.AppBase.Exceptions;
 
 using OtakuLib.Logic.Models;
 
 namespace OtakuLib.Logic.Services;
 
-internal class SettingsManager : ISettingsManager
+[SuppressMessage("Build", "CA1812:never instantiated", Justification = "auto build service.")]
+internal class SettingsManager<TSetting> : ISettingsManager<TSetting>
+    where TSetting : class
 {
     private readonly AppDB db;
-    private readonly Dictionary<string, object> cache = new();
+
+    private readonly string key;
     private readonly object locker = new();
+
+    private TSetting? cache;
 
     public SettingsManager(AppDB db)
     {
         this.db = db;
+
+        key = typeof(TSetting).FullName ?? throw new ArgumentException("setting type is not valid.");
     }
 
-    public TSetting? Fetch<TSetting>(string key)
-        where TSetting : class
+    public bool TryFetch(out TSetting? setting)
     {
-        if (string.IsNullOrWhiteSpace(key))
-        {
-            throw new ArgumentException($"'{nameof(key)}' cannot be null or whitespace.", nameof(key));
-        }
+        StringArgExceptionHelper.ThrowIfNullOrWhiteSpace(key);
 
         lock (locker)
         {
-            if (!cache.TryGetValue(key, out var value))
+            if (cache is null)
             {
                 var doc = db.Settings.FindOne(s => s.Id == key)?.Value;
-                if (doc is null) { return null; }
+                if (doc is null)
+                {
+                    setting = null;
+                    return false;
+                }
 
-                value = db.Database.Mapper.Deserialize<TSetting>(doc);
-                cache[key] = value;
+                cache = db.Database.Mapper.Deserialize<TSetting>(doc);
             }
 
-            return (TSetting)value;
+            setting = cache;
+            return true;
         }
     }
 
-    public void Save<TOptions>(string key, TOptions setting)
-        where TOptions : class
+    public TSetting Fetch()
     {
-        if (string.IsNullOrWhiteSpace(key))
+        var success = TryFetch(out var setting);
+
+        if (success)
         {
-            throw new ArgumentException($"'{nameof(key)}' cannot be null or white space.", nameof(key));
+            return setting!;
         }
 
+        throw new UnExpectedNullException("requested setting not found. use 'TryFetch' if you're not sure of setting existence.");
+    }
+
+    public void Save(TSetting setting)
+    {
+        StringArgExceptionHelper.ThrowIfNullOrWhiteSpace(key);
         ArgumentNullException.ThrowIfNull(setting);
 
         Setting settings = new(key, db.Database.Mapper.Serialize(setting));
         lock (locker)
         {
-            var found = db.Settings.Update(settings);
-            if (!found)
-            {
-                _ = db.Settings.Insert(settings);
-            }
-
-            cache[key] = setting;
+            _ = db.Settings.Upsert(settings);
+            cache = setting;
         }
     }
-}
-
-public interface ISettingsManager
-{
-    TSetting? Fetch<TSetting>(string key) where TSetting : class;
-    void Save<TSetting>(string key, TSetting setting) where TSetting : class;
 }

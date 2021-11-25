@@ -1,10 +1,23 @@
-﻿namespace OtakuLib.Logic.Models.Settings
-{
-    public record MainSettings
-    {
-        public const string Key = "{10FD60D0-546C-4FDC-9D92-849E571C4C7E}";
+﻿namespace OtakuLib.Logic.Models.Settings;
 
-        public AppearanceSettings AppearanceSettings { get; init; }
-        public string Version { get; init; }
+public record MainSettings
+{
+    public const string Key = "OtakuLib.MainSettings";
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    public MainSettings() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+    public string Version { get; init; }
+
+    private readonly static Lazy<MainSettings> lazyDefault = new(GetDefault);
+    public static MainSettings Default => lazyDefault.Value;
+    private static MainSettings GetDefault()
+    {
+        return new()
+        {
+            Version = "0.0.0.0",
+        };
     }
 }
+

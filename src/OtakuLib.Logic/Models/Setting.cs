@@ -1,16 +1,13 @@
 ﻿using LiteDB;
 
-namespace OtakuLib.Logic.Models
-{
-    public class Setting
-    {
-        public Setting(string id, BsonValue value)
-        {
-            Id = id;
-            Value = value;
-        }
+namespace OtakuLib.Logic.Models;
 
-        public string Id { get; set; }
-        public BsonValue Value { get; set; }
+[CLSCompliant(false)]
+public record Setting(string Id, BsonValue Value)
+{
+    public Setting()
+        : this(string.Empty, BsonValue.Null)
+    {
     }
 }
+

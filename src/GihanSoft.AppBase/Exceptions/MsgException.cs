@@ -1,7 +1,7 @@
 ﻿namespace GihanSoft.AppBase.Exceptions;
 
-[System.Serializable]
-public class MsgException : System.Exception
+[Serializable]
+public class MsgException : Exception
 {
     public MsgException() { }
     public MsgException(string message) : base(message) { }

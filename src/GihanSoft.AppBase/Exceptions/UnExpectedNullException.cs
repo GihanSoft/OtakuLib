@@ -1,11 +1,11 @@
 ﻿namespace GihanSoft.AppBase.Exceptions;
 
-[System.Serializable]
-public class UnExpectedNullException : System.NullReferenceException
+[Serializable]
+public class UnExpectedNullException : NullReferenceException
 {
     public UnExpectedNullException() { }
     public UnExpectedNullException(string message) : base(message) { }
-    public UnExpectedNullException(string message, System.Exception inner) : base(message, inner) { }
+    public UnExpectedNullException(string message, Exception inner) : base(message, inner) { }
     protected UnExpectedNullException(
       System.Runtime.Serialization.SerializationInfo info,
       System.Runtime.Serialization.StreamingContext context) : base(info, context) { }

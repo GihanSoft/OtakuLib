@@ -1,45 +1,47 @@
-﻿using System;
-
+﻿
 using GihanSoft.AppBase;
+using GihanSoft.AppBase.Exceptions;
 
 using OtakuLib.Logic.Models.Settings;
 using OtakuLib.Logic.Services;
-using OtakuLib.Logic.Utilities;
 
-namespace OtakuLib.Logic.Bootstrap
+namespace OtakuLib.Logic.Bootstrap;
+
+public class Initializer : IInitializer
 {
-    public class Initializer : IInitializer
+    private readonly ISettingsManager<MainSettings> settingsManager;
+    private readonly Version version;
+
+    public Initializer(
+        ISettingsManager<MainSettings> settingsManager,
+        Version version)
     {
-        private readonly ISettingsManager settingsManager;
-        private readonly Version version;
+        this.settingsManager = settingsManager;
+        this.version = version;
+    }
 
-        public Initializer(ISettingsManager settingsManager, Version version)
+    public void FirstRunInitialize()
+    {
+        settingsManager.Save(MainSettings.Default with
         {
-            this.settingsManager = settingsManager;
-            this.version = version;
-        }
+            Version = version.ToString(4)
+        });
+    }
 
-        public void FirstRunInitialize()
-        {
-            settingsManager.SaveMainSettings(new MainSettings
-            {
-                Version = version.ToString(4),
-                AppearanceSettings = new AppearanceSettings
-                {
-                }
-            });
-        }
+    public void Initialize()
+    {
+    }
 
-        public void Initialize()
-        {
-        }
+    public void LateInitialize()
+    {
+    }
 
-        public void LateInitialize()
+    public void UpdateInitialize()
+    {
+        var mainSettings = settingsManager.Fetch();
+        settingsManager.Save(mainSettings with
         {
-        }
-
-        public void UpdateInitialize()
-        {
-        }
+            Version = version.ToString(4)
+        });
     }
 }

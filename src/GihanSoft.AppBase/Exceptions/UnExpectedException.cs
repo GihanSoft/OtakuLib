@@ -1,11 +1,11 @@
 ﻿namespace GihanSoft.AppBase.Exceptions;
 
-[System.Serializable]
-public class UnExpectedException : System.Exception
+[Serializable]
+public class UnExpectedException : Exception
 {
     public UnExpectedException() { }
     public UnExpectedException(string message) : base(message) { }
-    public UnExpectedException(string message, System.Exception inner) : base(message, inner) { }
+    public UnExpectedException(string message, Exception inner) : base(message, inner) { }
     protected UnExpectedException(
       System.Runtime.Serialization.SerializationInfo info,
       System.Runtime.Serialization.StreamingContext context) : base(info, context) { }

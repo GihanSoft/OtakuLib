@@ -1,45 +1,32 @@
-﻿using System.Windows;
+﻿using GihanSoft.AppBase;
 
-using GihanSoft.AppBase;
-
+using OtakuLib.Logic.Models.Settings;
 using OtakuLib.Logic.Services;
-using OtakuLib.WPF.Models.Settings;
 
-namespace OtakuLib.WPF.Bootstrap
+namespace OtakuLib.WPF.Bootstrap;
+
+public class Initializer : IInitializer
 {
-    public class Initializer : IInitializer
+    private readonly ISettingsManager<MainSettings> settingsManager;
+
+    public Initializer(ISettingsManager<MainSettings> settingsManager)
     {
-        private readonly ISettingsManager settingsManager;
+        this.settingsManager = settingsManager;
+    }
 
-        public Initializer(ISettingsManager settingsManager)
-        {
-            this.settingsManager = settingsManager;
-        }
+    public void FirstRunInitialize()
+    {
+    }
 
-        public void FirstRunInitialize()
-        {
-            const double width = 600;
-            const double height = 450;
-            settingsManager.Save(WindowSettings.Key, new WindowSettings
-            {
-                WindowState = WindowState.Maximized,
-                Width = width,
-                Height = height,
-                Top = (SystemParameters.MaximizedPrimaryScreenHeight - height) / 2,
-                Left = (SystemParameters.MaximizedPrimaryScreenWidth - width) / 2,
-            });
-        }
+    public void Initialize()
+    {
+    }
 
-        public void Initialize()
-        {
-        }
+    public void LateInitialize()
+    {
+    }
 
-        public void LateInitialize()
-        {
-        }
-
-        public void UpdateInitialize()
-        {
-        }
+    public void UpdateInitialize()
+    {
     }
 }

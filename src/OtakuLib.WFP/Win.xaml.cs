@@ -1,13 +1,13 @@
-﻿namespace OtakuLib.WFP
+﻿namespace OtakuLib.WFP;
+
+/// <summary>
+/// Interaction logic for Win.xaml
+/// </summary>
+[CLSCompliant(false)]
+public sealed partial class Win
 {
-    /// <summary>
-    /// Interaction logic for Win.xaml
-    /// </summary>
-    public sealed partial class Win
+    public Win()
     {
-        public Win()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

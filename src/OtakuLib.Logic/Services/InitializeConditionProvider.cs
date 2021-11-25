@@ -1,9 +1,6 @@
-﻿using System;
-
-using GihanSoft.AppBase;
+﻿using GihanSoft.AppBase;
 
 using OtakuLib.Logic.Models.Settings;
-using OtakuLib.Logic.Utilities;
 
 namespace OtakuLib.Logic.Services
 {
@@ -12,9 +9,10 @@ namespace OtakuLib.Logic.Services
         private readonly MainSettings? mainSettings;
         private readonly Version version;
 
-        public InitializeConditionProvider(ISettingsManager settingsManager, Version version)
+        public InitializeConditionProvider(ISettingsManager<MainSettings> settingsManager, Version version)
         {
-            mainSettings = settingsManager.GetMainSettings();
+            ArgumentNullException.ThrowIfNull(settingsManager);
+            mainSettings = settingsManager.Fetch();
             this.version = version;
         }
 

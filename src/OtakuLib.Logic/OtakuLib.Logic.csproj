@@ -13,8 +13,4 @@
         <ProjectReference Include="..\GihanSoft.AppBase\GihanSoft.AppBase.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="ViewModels\" />
-    </ItemGroup>
-
 </Project>
