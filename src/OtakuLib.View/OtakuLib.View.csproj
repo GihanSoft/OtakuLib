@@ -11,8 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GihanSoft.ApplicationFrameworkBase\GihanSoft.ApplicationFrameworkBase.csproj" />
     <ProjectReference Include="..\OtakuLib.Logic\OtakuLib.Logic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="XamlConverter\" />
   </ItemGroup>
 
 </Project>

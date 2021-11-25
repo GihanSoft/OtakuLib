@@ -26,11 +26,6 @@ namespace OtakuLib.Logic.Bootstrap
                 Version = version.ToString(4),
                 AppearanceSettings = new AppearanceSettings
                 {
-                    WindowState = 2,
-                    Top = 50,
-                    Left = 50,
-                    Width = 600,
-                    Height = 450,
                 }
             });
         }
