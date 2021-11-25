@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/OtakuLib.WFP;component/Resources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/OtakuLib.WPF;component/Resources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -1,72 +1,69 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using LiteDB;
+
 using OtakuLib.Logic.Models;
 
-namespace OtakuLib.Logic.Services
+namespace OtakuLib.Logic.Services;
+
+internal class SettingsManager : ISettingsManager
 {
-    internal class SettingsManager : ISettingsManager
+    private readonly AppDB db;
+    private readonly Dictionary<string, object> cache = new();
+    private readonly object locker = new();
+
+    public SettingsManager(AppDB db)
     {
-        private readonly AppDB db;
-        private readonly Dictionary<string, object> cache = new();
-        private readonly object locker = new();
+        this.db = db;
+    }
 
-        public SettingsManager(AppDB db)
+    public TSetting? Fetch<TSetting>(string key)
+        where TSetting : class
+    {
+        if (string.IsNullOrWhiteSpace(key))
         {
-            this.db = db;
+            throw new ArgumentException($"'{nameof(key)}' cannot be null or whitespace.", nameof(key));
         }
 
-        public TSetting? Fetch<TSetting>(string key)
-            where TSetting : class
+        lock (locker)
         {
-            if (string.IsNullOrWhiteSpace(key))
+            if (!cache.TryGetValue(key, out var value))
             {
-                throw new ArgumentException($"'{nameof(key)}' cannot be null or whitespace.", nameof(key));
+                var doc = db.Settings.FindOne(s => s.Id == key)?.Value;
+                if (doc is null) { return null; }
+
+                value = db.Database.Mapper.Deserialize<TSetting>(doc);
+                cache[key] = value;
             }
 
-            lock (locker)
-            {
-                if (!cache.TryGetValue(key, out var value))
-                {
-                    value = db.Settings.FindOne(s => s.Id == key)?.Value;
-                    if (value is null) { return null; }
-
-                    cache[key] = value;
-                }
-
-                return (TSetting)value;
-            }
-        }
-
-        public void Save<TOptions>(string key, TOptions setting)
-            where TOptions : class
-        {
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                throw new ArgumentException($"'{nameof(key)}' cannot be null or white space.", nameof(key));
-            }
-
-            if (setting is null)
-            {
-                throw new ArgumentNullException(nameof(setting));
-            }
-
-            Setting settings = new(key, setting);
-            lock (locker)
-            {
-                var found = db.Settings.Update(settings);
-                if (!found)
-                {
-                    _ = db.Settings.Insert(settings);
-                }
-
-                cache[key] = setting;
-            }
+            return (TSetting)value;
         }
     }
 
-    public interface ISettingsManager
+    public void Save<TOptions>(string key, TOptions setting)
+        where TOptions : class
     {
-        TSetting? Fetch<TSetting>(string key) where TSetting : class;
-        void Save<TSetting>(string key, TSetting setting) where TSetting : class;
+        if (string.IsNullOrWhiteSpace(key))
+        {
+            throw new ArgumentException($"'{nameof(key)}' cannot be null or white space.", nameof(key));
+        }
+
+        ArgumentNullException.ThrowIfNull(setting);
+
+        Setting settings = new(key, db.Database.Mapper.Serialize(setting));
+        lock (locker)
+        {
+            var found = db.Settings.Update(settings);
+            if (!found)
+            {
+                _ = db.Settings.Insert(settings);
+            }
+
+            cache[key] = setting;
+        }
     }
+}
+
+public interface ISettingsManager
+{
+    TSetting? Fetch<TSetting>(string key) where TSetting : class;
+    void Save<TSetting>(string key, TSetting setting) where TSetting : class;
 }

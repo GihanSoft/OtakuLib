@@ -34,6 +34,10 @@ namespace OtakuLib.Logic.Bootstrap
         {
         }
 
+        public void LateInitialize()
+        {
+        }
+
         public void UpdateInitialize()
         {
         }

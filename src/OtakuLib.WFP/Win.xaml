@@ -6,19 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:conv="clr-namespace:OtakuLib.WFP.XamlConverter"
     mc:Ignorable="d"
-    DataContext="{Binding ViewModel, ElementName=This, Mode=OneTime}"
     x:Name="This"
     TitleCharacterCasing="Normal"
-    SaveWindowPosition="False"
-    Title="{Binding Title}"
-    WindowState="{Binding WindowState, Mode=TwoWay, Converter={x:Static conv:WindowStateConverter.Default}}"
-    Height="{Binding Height, Mode=TwoWay}"
-    Width="{Binding Width, Mode=TwoWay}"
-    Top="{Binding Top, Mode=TwoWay}"
-    Left="{Binding Left, Mode=TwoWay}"
-    >
+    SaveWindowPosition="False">
     <Grid>
 
     </Grid>

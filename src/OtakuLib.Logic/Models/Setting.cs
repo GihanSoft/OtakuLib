@@ -1,19 +1,16 @@
-﻿namespace OtakuLib.Logic.Models
+﻿using LiteDB;
+
+namespace OtakuLib.Logic.Models
 {
     public class Setting
     {
-        public Setting(string id, object value)
+        public Setting(string id, BsonValue value)
         {
             Id = id;
             Value = value;
         }
 
-        public Setting(string id)
-        {
-            Id = id;
-        }
-
         public string Id { get; set; }
-        public object? Value { get; set; }
+        public BsonValue Value { get; set; }
     }
 }

@@ -34,6 +34,10 @@ namespace OtakuLib.WPF.Bootstrap
         {
         }
 
+        public void LateInitialize()
+        {
+        }
+
         public void UpdateInitialize()
         {
         }
