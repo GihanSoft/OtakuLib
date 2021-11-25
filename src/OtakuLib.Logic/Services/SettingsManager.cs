@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
 using GihanSoft.AppBase.Exceptions;
+using GihanSoft.AppBase.Services;
 
 using OtakuLib.Logic.Models;
 

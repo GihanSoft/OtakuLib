@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿
+using Microsoft.Extensions.DependencyInjection;
 
-namespace GihanSoft.AppBase;
+namespace GihanSoft.AppBase.Bootstrap;
 
 public interface IServiceSetup
 {

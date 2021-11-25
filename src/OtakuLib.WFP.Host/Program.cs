@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Threading;
 
-using GihanSoft.AppBase;
+using GihanSoft.AppBase.Bootstrap;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

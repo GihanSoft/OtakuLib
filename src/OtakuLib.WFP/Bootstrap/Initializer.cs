@@ -1,7 +1,7 @@
-﻿using GihanSoft.AppBase;
+﻿using GihanSoft.AppBase.Bootstrap;
+using GihanSoft.AppBase.Services;
 
 using OtakuLib.Logic.Models.Settings;
-using OtakuLib.Logic.Services;
 
 namespace OtakuLib.WPF.Bootstrap;
 

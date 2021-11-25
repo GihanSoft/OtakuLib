@@ -1,4 +1,4 @@
-﻿using GihanSoft.AppBase;
+﻿using GihanSoft.AppBase.Bootstrap;
 
 namespace OtakuLib.WPF.Bootstrap;
 

@@ -1,4 +1,4 @@
-﻿namespace GihanSoft.AppBase;
+﻿namespace GihanSoft.AppBase.Bootstrap;
 
 public interface IInitializer
 {

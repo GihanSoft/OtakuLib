@@ -1,4 +1,4 @@
-﻿namespace OtakuLib.Logic.Services;
+﻿namespace GihanSoft.AppBase.Services;
 
 public interface ISettingsManager<TSetting>
     where TSetting : class
