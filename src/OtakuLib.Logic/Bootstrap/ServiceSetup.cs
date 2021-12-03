@@ -5,6 +5,7 @@ using GihanSoft.AppBase;
 using GihanSoft.AppBase.Bootstrap;
 using GihanSoft.AppBase.Exceptions;
 using GihanSoft.AppBase.Services;
+using GihanSoft.MangaSources;
 
 using LiteDB;
 
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using OtakuLib.Logic.Services;
 using OtakuLib.Logic.Utilities;
+using OtakuLib.MangaSourceBase;
 
 namespace OtakuLib.Logic.Bootstrap;
 
@@ -32,6 +34,7 @@ public class ServiceSetup : IServiceSetup
         AddDatabase(services);
         services.AddSingleton(typeof(ISettingsManager<>), typeof(SettingsManager<>));
         AddViewModels(services);
+        services.AddSingleton<MangaSource, LocalMangaSource>();
     }
 
     public static void AddVersion(IServiceCollection services)

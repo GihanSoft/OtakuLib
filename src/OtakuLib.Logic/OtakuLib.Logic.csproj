@@ -11,6 +11,9 @@
 
     <ItemGroup>
         <ProjectReference Include="..\GihanSoft.AppBase\GihanSoft.AppBase.csproj" />
+        <ProjectReference Include="..\GihanSoft.MangaSources\GihanSoft.MangaSources.csproj" />
+        <ProjectReference Include="..\GihanSoft.Navigation\GihanSoft.Navigation.Abstraction\GihanSoft.Navigation.Abstraction.csproj" />
+        <ProjectReference Include="..\OtakuLib.MangaSource\OtakuLib.MangaSourceBase.csproj" />
     </ItemGroup>
 
 </Project>

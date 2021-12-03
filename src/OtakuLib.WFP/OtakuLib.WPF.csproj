@@ -6,11 +6,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+        <PackageReference Include="HandyControls" Version="3.3.8.1" />
         <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\GihanSoft.Navigation\GihanSoft.Navigation.WPF\GihanSoft.Navigation.WPF.csproj" />
         <ProjectReference Include="..\OtakuLib.Logic\OtakuLib.Logic.csproj" />
     </ItemGroup>
 

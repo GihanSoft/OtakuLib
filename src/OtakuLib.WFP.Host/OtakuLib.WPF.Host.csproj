@@ -7,6 +7,7 @@
         <AssemblyName>OtakuLib</AssemblyName>
         <StartupObject>OtakuLib.WPF.Host.Program</StartupObject>
         <ApplicationIcon>OtakuLib.ico</ApplicationIcon>
+        <SatelliteResourceLanguages>en-US;fa</SatelliteResourceLanguages>
     </PropertyGroup>
 
     <ItemGroup>
