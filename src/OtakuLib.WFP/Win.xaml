@@ -6,15 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:comp="clr-namespace:OtakuLib.WPF.Components"
-    xmlns:conv="clr-namespace:OtakuLib.WPF.XamlConverters"
-    xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:OtakuLib.WPF"
+    xmlns:comp="clr-namespace:OtakuLib.WPF.Components"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
     mc:Ignorable="d"
     x:Name="This"
     DataContext="{Binding ViewModel, ElementName=This}"
-    ShowTitle="False"
-    IsFullScreen="False"
     NonClientAreaHeight="100">
     <hc:Window.NonClientAreaContent>
         <Grid>
@@ -39,7 +36,6 @@
             </Grid.Resources>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                 <hc:SplitButton
-                    Name="backStackBtn"
                     Content="{icon:Material Kind=ArrowLeft}"
                     IsDropDownOpen="{Binding IsBackStackOpen, Mode=TwoWay}"
                     Command="{Binding PageNavigator.CmdNavBack}">
@@ -79,6 +75,13 @@
                         </comp:ItemsControl2>
                     </hc:SplitButton.DropDownContent>
                 </hc:SplitButton>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button
+                    Content="{icon:Material Kind=Fullscreen}"
+                    CommandParameter="{Binding IsFullScreen, ElementName=This, Converter={StaticResource Boolean2BooleanReConverter}}"
+                    Command="{Binding FullScreenProvider.CmdSetFullScreen}"
+                    />
             </StackPanel>
         </Grid>
     </hc:Window.NonClientAreaContent>

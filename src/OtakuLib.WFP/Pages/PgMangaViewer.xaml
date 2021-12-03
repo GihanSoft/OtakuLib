@@ -8,5 +8,5 @@
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800"
     DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}">
-    <ContentControl Content="{Binding PagesViewer}" />
+    <ContentPresenter Content="{Binding PagesViewer}" />
 </gnav:Page>

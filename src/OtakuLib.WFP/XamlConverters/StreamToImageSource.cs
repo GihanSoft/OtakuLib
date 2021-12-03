@@ -21,8 +21,8 @@ public sealed class StreamToImageSource : IMultiValueConverter
         var mem = pagesProvider.GetPage(page);
         if (mem is null)
         {
-            pagesProvider.LoadPageAsync(page).GetAwaiter().GetResult();
-            mem = pagesProvider.GetPage(page);
+            pagesProvider.LoadPageAsync(page).ConfigureAwait(true).GetAwaiter().GetResult();
+            mem = pagesProvider.GetPage(page)!;
         }
 
         mem.Position = 0;

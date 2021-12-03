@@ -55,27 +55,25 @@ public partial class SinglePagePagesViewer : UserControl, IPagesViewer
         }
     }
 
-    private async void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+    private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
     {
         if (sender is not ScrollViewer scrollViewer) { return; }
 
-        if (Keyboard.Modifiers != ModifierKeys.Control)
+        static async Task AsyncMothod(ScrollViewer scrollViewer, MouseWheelEventArgs e, IPagesViewerVM vm)
         {
-            return;
+            if (Keyboard.Modifiers != ModifierKeys.Control)
+            {
+                return;
+            }
+
+            vm.Zoom += 0.05 * (e.Delta > 0 ? 1 : -1);
+
+            await Dispatcher.Yield();
+
+            scrollViewer.ScrollToHorizontalOffset(scrollViewer.ScrollableWidth / 2);
+            scrollViewer.ScrollToVerticalOffset(scrollViewer.ScrollableHeight / 2);
         }
 
-        if (e.Delta > 0)
-        {
-            ViewModel.Zoom += 0.05;
-        }
-        else
-        {
-            ViewModel.Zoom -= 0.05;
-        }
-
-        await Dispatcher.Yield();
-
-        scrollViewer.ScrollToHorizontalOffset(scrollViewer.ScrollableWidth / 2);
-        scrollViewer.ScrollToVerticalOffset(scrollViewer.ScrollableHeight / 2);
+        _ = AsyncMothod(scrollViewer, e, ViewModel);
     }
 }

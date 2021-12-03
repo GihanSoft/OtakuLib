@@ -7,8 +7,10 @@ using GihanSoft.Navigation.WPF;
 using Microsoft.Extensions.DependencyInjection;
 
 using OtakuLib.Logic.Components;
+using OtakuLib.Logic.Services;
 using OtakuLib.WPF.Components;
 using OtakuLib.WPF.Pages.PgMainTabs;
+using OtakuLib.WPF.Providers;
 using OtakuLib.WPF.ViewModels;
 
 namespace OtakuLib.WPF.Bootstrap;
@@ -18,12 +20,18 @@ public class ServiceSetup : IServiceSetup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddSingleton<WinVM>();
-        services.AddScoped<IPageNavigator, PageNavigator>();
-        services.AddScoped(serviceProvider => serviceProvider.GetService<IPageNavigator>() as PageNavigator);
+        services.AddScoped<PageNavigator>();
+        services.AddScoped<IPageNavigator>(serviceProvider => serviceProvider.GetRequiredService<PageNavigator>());
 
         AddPages(services);
         AddPagesViewers(services);
         services.AddTransient<PgTabBrowse>();
+        AddProviders(services);
+    }
+
+    private static void AddProviders(IServiceCollection services)
+    {
+        services.AddSingleton<IFullScreenProvider, FullScreenProvider>();
     }
 
     private static void AddPagesViewers(IServiceCollection services)

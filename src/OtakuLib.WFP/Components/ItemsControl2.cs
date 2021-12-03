@@ -12,7 +12,9 @@ public class ItemsControl2 : ItemsControl
 
     protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
     {
+        if (element is null) { return; }
+
         base.PrepareContainerForItemOverride(element, item);
-        ((ContentPresenter)element).ContentTemplate = ItemTemplate;
+        element.SetCurrentValue(ContentPresenter.ContentTemplateProperty, ItemTemplate);
     }
 }
