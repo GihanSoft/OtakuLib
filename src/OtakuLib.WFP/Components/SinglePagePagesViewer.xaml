@@ -10,6 +10,15 @@
     d:DesignHeight="450" d:DesignWidth="800"
     x:Name="This"
     DataContext="{Binding ViewModel, ElementName=This}">
+    <UserControl.Resources>
+        <Style TargetType="hc:ScrollViewer" BasedOn="{StaticResource ScrollViewerBaseStyle}">
+            <Style.Triggers>
+                <Trigger Property="IsVisible" Value="True">
+                    <Setter Property="FocusManager.FocusedElement" Value="{Binding RelativeSource={RelativeSource Self}}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <hc:ScrollViewer
         VerticalScrollBarVisibility="Auto"
         HorizontalScrollBarVisibility="Auto"
@@ -18,18 +27,18 @@
         PreviewKeyDown="ScrollViewer_PreviewKeyDown"
         PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
         <Image>
-            <Image.Height>
+            <Image.MaxHeight>
                 <MultiBinding Converter="{x:Static conv:ZaribConverter.Default}">
                     <Binding Path="ViewportHeight" RelativeSource="{RelativeSource AncestorType=ScrollViewer}" />
                     <Binding Path="Zoom" />
                 </MultiBinding>
-            </Image.Height>
-            <Image.Width>
+            </Image.MaxHeight>
+            <Image.MaxWidth>
                 <MultiBinding Converter="{x:Static conv:ZaribConverter.Default}">
                     <Binding Path="ViewportWidth" RelativeSource="{RelativeSource AncestorType=ScrollViewer}" />
                     <Binding Path="Zoom" />
                 </MultiBinding>
-            </Image.Width>
+            </Image.MaxWidth>
             <Image.Source>
                 <MultiBinding Converter="{x:Static conv:StreamToImageSource.Default}">
                     <Binding Path="PagesProvider" />
