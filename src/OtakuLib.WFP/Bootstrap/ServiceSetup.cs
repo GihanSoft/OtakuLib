@@ -37,6 +37,7 @@ public class ServiceSetup : IServiceSetup
     private static void AddPagesViewers(IServiceCollection services)
     {
         services.AddTransient<IPagesViewer, SinglePagePagesViewer>();
+        services.AddTransient<IPagesViewer, WebtoonPagesViewer>();
     }
 
     private static void AddPages(IServiceCollection services)

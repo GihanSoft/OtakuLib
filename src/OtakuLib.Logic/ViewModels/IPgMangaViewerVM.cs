@@ -2,7 +2,6 @@
 
 using OtakuLib.Logic.Components;
 using OtakuLib.Logic.Models;
-using OtakuLib.MangaSourceBase;
 
 namespace OtakuLib.Logic.ViewModels
 {
@@ -10,5 +9,6 @@ namespace OtakuLib.Logic.ViewModels
     {
         IEnumerable<IPagesViewer> AvailablePagesViewers { get; }
         IPagesViewer PagesViewer { get; set; }
+        LibManga? LibManga { get; set; }
     }
 }

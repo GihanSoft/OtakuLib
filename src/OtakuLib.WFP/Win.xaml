@@ -11,8 +11,9 @@
     xmlns:hc="https://handyorg.github.io/handycontrol"
     mc:Ignorable="d"
     x:Name="This"
+    ShowTitle="False"
     DataContext="{Binding ViewModel, ElementName=This}"
-    NonClientAreaHeight="100">
+    NonClientAreaHeight="30">
     <hc:Window.NonClientAreaContent>
         <Grid>
             <Grid.Resources>

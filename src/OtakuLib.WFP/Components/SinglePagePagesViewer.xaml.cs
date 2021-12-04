@@ -14,11 +14,14 @@ public partial class SinglePagePagesViewer : UserControl, IPagesViewer
 {
     public SinglePagePagesViewer(IPagesViewerVM pagesViewerVM)
     {
+        Title = "Single Page";
         ViewModel = pagesViewerVM;
         InitializeComponent();
     }
 
     public IPagesViewerVM ViewModel { get; }
+
+    public string Title { get; }
 
     private void ScrollViewer_PreviewKeyDown(object sender, KeyEventArgs e)
     {
