@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 
 using GihanSoft.AppBase;
+using GihanSoft.AppBase.Commands;
 
 using OtakuLib.MangaSourceBase;
 
@@ -15,8 +16,8 @@ internal class PagesViewerVM : ViewModelBase, IPagesViewerVM
 
     public PagesViewerVM()
     {
-        CmdMoveToNextPage = new ActionCommand(MoveToNextPage);
-        CmdMoveToPreviousPage = new ActionCommand(MoveToPreviousPage);
+        CmdMoveToNextPage = DelegateCommand.Create(MoveToNextPage);
+        CmdMoveToPreviousPage = DelegateCommand.Create(MoveToPreviousPage);
     }
 
     public PagesProvider? PagesProvider
@@ -62,6 +63,14 @@ internal class PagesViewerVM : ViewModelBase, IPagesViewerVM
     public ICommand CmdMoveToNextPage { get; }
 
     public ICommand CmdMoveToPreviousPage { get; }
+
+    public void CopyState(IPagesViewerVM pagesViewer)
+    {
+        PagesProvider = pagesViewer.PagesProvider;
+        Page = pagesViewer.Page;
+        Zoom = pagesViewer.Zoom;
+        Offset = pagesViewer.Offset;
+    }
 
     private void MoveToNextPage()
     {

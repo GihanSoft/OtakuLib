@@ -7,9 +7,9 @@ namespace OtakuLib.WPF.Bootstrap;
 
 public class Initializer : IInitializer
 {
-    private readonly ISettingsManager<MainSettings> settingsManager;
+    private readonly IDataManager<MainSettings> settingsManager;
 
-    public Initializer(ISettingsManager<MainSettings> settingsManager)
+    public Initializer(IDataManager<MainSettings> settingsManager)
     {
         this.settingsManager = settingsManager;
     }

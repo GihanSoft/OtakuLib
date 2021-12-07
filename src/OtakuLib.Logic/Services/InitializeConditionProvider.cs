@@ -10,10 +10,10 @@ namespace OtakuLib.Logic.Services
         private readonly MainSettings? mainSettings;
         private readonly Version version;
 
-        public InitializeConditionProvider(ISettingsManager<MainSettings> settingsManager, Version version)
+        public InitializeConditionProvider(IDataManager<MainSettings> settingsManager, Version version)
         {
             ArgumentNullException.ThrowIfNull(settingsManager);
-            mainSettings = settingsManager.Fetch();
+            settingsManager.TryFetch(out mainSettings);
             this.version = version;
         }
 

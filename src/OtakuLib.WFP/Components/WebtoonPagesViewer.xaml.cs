@@ -1,8 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 using OtakuLib.Logic.Components;
 using OtakuLib.Logic.ViewModels;
@@ -17,6 +15,7 @@ public partial class WebtoonPagesViewer : UserControl, IPagesViewer, INotifyProp
 
     public WebtoonPagesViewer(IPagesViewerVM viewModel)
     {
+        Id = "GihanSoft.Webtoon";
         Title = "Webtoon Viewer";
         ViewModel = viewModel;
         HaWidth = new GridLength(200);
@@ -24,6 +23,8 @@ public partial class WebtoonPagesViewer : UserControl, IPagesViewer, INotifyProp
     }
 
     public IPagesViewerVM ViewModel { get; }
+
+    public string Id { get; }
 
     public string Title { get; }
 

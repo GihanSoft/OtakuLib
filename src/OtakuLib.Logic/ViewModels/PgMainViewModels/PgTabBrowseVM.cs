@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 
 using GihanSoft.AppBase;
+using GihanSoft.AppBase.Commands;
 using GihanSoft.Navigation.Abstraction;
 
 using OtakuLib.Logic.Pages;
@@ -18,7 +19,8 @@ public class PgTabBrowseVM : ViewModelBase, IPgTabBrowseVM
     {
         this.pageNavigator = pageNavigator;
         MangaSources = mangaSources;
-        CmdOpenSource = new ActionCommand<MangaSource>(OpenSource);
+
+        CmdOpenSource = DelegateCommand.Create(OpenSource, (MangaSource? input) => input is not null);
     }
 
     public IEnumerable<MangaSource> MangaSources { get; }

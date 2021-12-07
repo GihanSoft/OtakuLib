@@ -8,6 +8,8 @@ public record MainSettings
     public MainSettings() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
+    public MangaLibSettings MangaLibSettings { get; init; }
+
     public string Version { get; init; }
 
     private readonly static Lazy<MainSettings> lazyDefault = new(GetDefault);
@@ -17,6 +19,7 @@ public record MainSettings
         return new()
         {
             Version = "0.0.0.0",
+            MangaLibSettings = MangaLibSettings.Default,
         };
     }
 }

@@ -15,7 +15,11 @@
         <Grid DockPanel.Dock="Top" Height="32" Background="{DynamicResource Bg}">
             <StackPanel Orientation="Horizontal" Margin="1">
                 <Button Content="{icon:Material Kind=BookArrowLeft}" Style="{DynamicResource toolBtn}" />
-                <hc:ComboBox ItemsSource="{Binding LibManga.Chapters}" DisplayMemberPath="Title" Width="200" />
+                <hc:ComboBox
+                    ItemsSource="{Binding LibManga.Chapters}"
+                    SelectedIndex="{Binding Chapter, Mode=TwoWay}"
+                    DisplayMemberPath="Title"
+                    Width="200" />
                 <Button Content="{icon:Material Kind=BookArrowRight}" Style="{DynamicResource toolBtn}" />
 
                 <hc:Divider LineStrokeThickness="2" Orientation="Vertical" />

@@ -8,7 +8,7 @@ using OtakuLib.Logic.Models;
 namespace OtakuLib.Logic.Services;
 
 [SuppressMessage("Build", "CA1812:never instantiated", Justification = "auto build service.")]
-internal class SettingsManager<TSetting> : ISettingsManager<TSetting>
+internal class SettingsManager<TSetting> : IDataManager<TSetting>
     where TSetting : class
 {
     private readonly AppDB db;

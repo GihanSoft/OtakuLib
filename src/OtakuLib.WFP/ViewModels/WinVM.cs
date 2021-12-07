@@ -4,6 +4,7 @@ using GihanSoft.Navigation.WPF;
 
 using OtakuLib.Logic.Pages;
 using OtakuLib.Logic.Services;
+using OtakuLib.MangaSourceBase;
 
 namespace OtakuLib.WPF.ViewModels;
 
@@ -12,7 +13,7 @@ public class WinVM : ViewModelBase
     private bool isBackStackOpen;
     private bool isForwardStackOpen;
 
-    public WinVM(PageNavigator pageNavigator, IFullScreenProvider fullScreenProvider)
+    public WinVM(PageNavigator pageNavigator, IFullScreenProvider fullScreenProvider, IEnumerable<MangaSource> mangaSources)
     {
         ArgumentNullException.ThrowIfNull(pageNavigator);
 
@@ -24,7 +25,15 @@ public class WinVM : ViewModelBase
         pageNavigator.NavTo<IPgMain>();
         pageNavigator.NavTo<IPgMangaViewer>();
         var page = pageNavigator.CurrentPage as IPgMangaViewer;
-        page!.ViewModel.PagesViewer.ViewModel.PagesProvider = pagesProvider;
+        page!.ViewModel.SetLibManga(new Logic.Models.LibManga()
+        {
+            Manga = mangaSources.First()
+                .GetMangasAsync(
+                    new PaginationInfo(0, string.Empty, 0),
+                    "fight")
+                .Result.First()
+        }, 0);
+        //page!.ViewModel.PagesViewer.ViewModel.PagesProvider = pagesProvider;
     }
 
     public PageNavigator PageNavigator { get; }

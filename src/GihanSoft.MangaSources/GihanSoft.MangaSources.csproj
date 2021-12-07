@@ -1,19 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
 
-    <ItemGroup>
-      <Content Remove="C:\Users\chief\.nuget\packages\gihansoft.string.naturalcomparer\2.1.0\contentFiles\any\net5.0\stylecop.json" />
-    </ItemGroup>
+	<ItemGroup>
+		<Content Remove="C:\Users\chief\.nuget\packages\gihansoft.string.naturalcomparer\2.1.0\contentFiles\any\net5.0\stylecop.json" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="GihanSoft.String.NaturalComparer" Version="2.1.0" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="GihanSoft.String.NaturalComparer" Version="2.1.0" />
+		<PackageReference Include="SharpCompress" Version="0.30.1" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\OtakuLib.MangaSource\OtakuLib.MangaSourceBase.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\OtakuLib.MangaSource\OtakuLib.MangaSourceBase.csproj" />
+	</ItemGroup>
 
 </Project>

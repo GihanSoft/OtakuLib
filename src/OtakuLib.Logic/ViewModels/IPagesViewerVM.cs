@@ -14,4 +14,6 @@ public interface IPagesViewerVM : INotifyPropertyChanged
 
     ICommand CmdMoveToNextPage { get; }
     ICommand CmdMoveToPreviousPage { get; }
+
+    public void CopyState(IPagesViewerVM pagesViewer);
 }

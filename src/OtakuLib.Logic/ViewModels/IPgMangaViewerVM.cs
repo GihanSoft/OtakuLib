@@ -9,6 +9,9 @@ namespace OtakuLib.Logic.ViewModels
     {
         IEnumerable<IPagesViewer> AvailablePagesViewers { get; }
         IPagesViewer PagesViewer { get; set; }
-        LibManga? LibManga { get; set; }
+        LibManga LibManga { get; }
+        int Chapter { get; set; }
+
+        public void SetLibManga(LibManga libManga, int chapter);
     }
 }

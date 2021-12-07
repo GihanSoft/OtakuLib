@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-using GihanSoft.AppBase;
+using GihanSoft.AppBase.Commands;
 
 using OtakuLib.Logic.Services;
 
@@ -13,7 +13,7 @@ public class FullScreenProvider : IFullScreenProvider
 {
     public FullScreenProvider()
     {
-        CmdSetFullScreen = new ActionCommand<bool>(value => IsFullScreen = value);
+        CmdSetFullScreen = DelegateCommand.Create((bool? value) => IsFullScreen = value ?? false);
     }
 
     public bool IsFullScreen

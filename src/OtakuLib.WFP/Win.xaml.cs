@@ -1,9 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Threading;
-
-using HandyControl.Controls;
-using HandyControl.Tools.Extension;
 
 using OtakuLib.WPF.ViewModels;
 

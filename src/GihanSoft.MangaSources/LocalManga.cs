@@ -1,13 +1,16 @@
-﻿using OtakuLib.MangaSourceBase;
+﻿using System.Globalization;
+
+using GihanSoft.String;
+
+using OtakuLib.MangaSourceBase;
 
 namespace GihanSoft.MangaSources;
 
-internal class LocalManga : Manga
+internal sealed class LocalManga : Manga
 {
     private LocalManga(string id, string title, Uri cover)
         : base(id, title, cover)
     {
-
     }
 
     public override Task<Chapter> GetChapterAsync(string id)
@@ -17,7 +20,14 @@ internal class LocalManga : Manga
 
     public override Task<IEnumerable<Chapter>> GetChaptersAsync()
     {
-        throw new NotImplementedException();
+        var result = Directory.EnumerateFileSystemEntries(Id)
+            .Where(e =>
+                Directory.Exists(e) ||
+                FileTypeList.CompressedType.Contains(Path.GetExtension(e), StringComparer.OrdinalIgnoreCase))
+            .NaturalOrderBy(x => x)
+            .Select(dirPath => new LocalChapter(dirPath, Path.GetFileName(dirPath)) as Chapter);
+
+        return Task.FromResult(result);
     }
 
     public static LocalManga Ctor(string path, Uri? cover)

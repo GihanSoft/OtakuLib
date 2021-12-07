@@ -14,12 +14,15 @@ public partial class SinglePagePagesViewer : UserControl, IPagesViewer
 {
     public SinglePagePagesViewer(IPagesViewerVM pagesViewerVM)
     {
+        Id = "GihanSoft.SinglePage";
         Title = "Single Page";
         ViewModel = pagesViewerVM;
         InitializeComponent();
     }
 
     public IPagesViewerVM ViewModel { get; }
+
+    public string Id { get; }
 
     public string Title { get; }
 

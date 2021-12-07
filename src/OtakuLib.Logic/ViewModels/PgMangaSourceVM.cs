@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 
 using GihanSoft.AppBase;
+using GihanSoft.AppBase.Commands;
 
 using OtakuLib.MangaSourceBase;
 
@@ -20,7 +21,7 @@ internal class PgMangaSourceVM : ViewModelBase, IPgMangaSourceVM
     {
         mangas = new();
         Mangas = new(mangas);
-        CmdFetchNextPage = new ActionCommand(() => _ = FetchNextPageAsync());
+        CmdFetchNextPage = DelegateCommand.Create(FetchNextPageAsync);
     }
 
     public MangaSource? MangaSource
@@ -43,7 +44,8 @@ internal class PgMangaSourceVM : ViewModelBase, IPgMangaSourceVM
 
     public async Task FetchNextPageAsync()
     {
-        if (mangaSource is null) { return; }
+        if (mangaSource is null)
+        { return; }
 
         var lastId = mangas.Count > 0 ? mangas[^1].Id : string.Empty;
         PaginationInfo paginationInfo = new(Page + 1, lastId, receivedMangaCount);
