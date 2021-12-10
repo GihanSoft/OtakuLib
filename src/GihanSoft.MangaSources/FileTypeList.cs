@@ -1,11 +1,13 @@
-﻿namespace GihanSoft.MangaSources;
+﻿using System.Collections.Immutable;
+
+namespace GihanSoft.MangaSources;
 
 public static class FileTypeList
 {
     static FileTypeList()
     {
-        ImageTypes = new[] { ".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp" };
-        CompressedType = new[] { ".zip", ".rar", ".cbr", ".cbz", ".kn" };
+        ImageTypes = ImmutableArray.Create(".JPG", ".JPEG", ".PNG", ".BMP", ".GIF", ".WEBP");
+        CompressedType = ImmutableArray.Create(".ZIP", ".RAR", ".CBR", ".CBZ");
     }
 
     public static IEnumerable<string> ImageTypes { get; }

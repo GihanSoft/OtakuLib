@@ -4,8 +4,8 @@ namespace GihanSoft.MangaSources;
 
 internal sealed class LocalChapter : Chapter
 {
-    public LocalChapter(string id, string chapter)
-        : base(id, chapter)
+    public LocalChapter(string id, string title)
+        : base(id, title)
     {
     }
 
@@ -14,9 +14,11 @@ internal sealed class LocalChapter : Chapter
         var isCompressed =
             File.Exists(Id) &&
             FileTypeList.CompressedType.Contains(Path.GetExtension(Id), StringComparer.OrdinalIgnoreCase);
+
         var pagesProvider = isCompressed ?
             new CompressedPageProvider(Id) :
             new LocalPagesProvider(Id) as PagesProvider;
+
         return Task.FromResult(pagesProvider);
     }
 }
