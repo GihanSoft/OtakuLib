@@ -6,4 +6,3 @@ public interface IPgMainVM : INotifyPropertyChanged
 {
     IPgTabBrowseVM TabBrowseVM { get; }
 }
-

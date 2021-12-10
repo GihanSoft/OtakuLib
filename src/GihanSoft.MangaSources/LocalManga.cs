@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-using GihanSoft.String;
+﻿using GihanSoft.String;
 
 using OtakuLib.MangaSourceBase;
 

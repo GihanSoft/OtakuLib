@@ -25,7 +25,8 @@ public class LocalPagesProvider : PagesProvider
 
     public override MemoryStream? GetPage(int page)
     {
-        if (disposed) { throw new ObjectDisposedException(nameof(LocalMangaSource)); }
+        if (disposed)
+        { throw new ObjectDisposedException(nameof(LocalMangaSource)); }
 
         return memoryStreams[page];
     }

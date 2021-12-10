@@ -28,7 +28,8 @@ public static class DelegateCommand
     public static IAsyncDelegateCommand Create<TInput>(Func<TInput?, Task> action, Func<TInput?, bool> canExecuteAction) =>
         new AsyncDelegateCommand<TInput>(action, canExecuteAction);
 
-    private static bool AlwaysTrue<TInput>(TInput? _) { return true; }
+    private static bool AlwaysTrue<TInput>(TInput? _)
+    { return true; }
 
     public static bool TryCastValue<TInput>(object? parameter, out TInput? input)
     {
@@ -37,9 +38,11 @@ public static class DelegateCommand
             case TInput value:
                 input = value;
                 return true;
+
             case null:
                 input = default;
                 return true;
+
             default:
                 input = default;
                 return false;

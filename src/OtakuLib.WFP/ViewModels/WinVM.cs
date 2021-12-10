@@ -1,5 +1,4 @@
 ﻿using GihanSoft.AppBase;
-using GihanSoft.MangaSources;
 using GihanSoft.Navigation.WPF;
 
 using OtakuLib.Logic.Pages;
@@ -17,9 +16,6 @@ public class WinVM : ViewModelBase
     {
         ArgumentNullException.ThrowIfNull(pageNavigator);
 
-        const string path = @"D:\Entertainment\Manga\Fights Break Sphere\237";
-        LocalPagesProvider pagesProvider = new(path);
-
         PageNavigator = pageNavigator;
         FullScreenProvider = fullScreenProvider;
         pageNavigator.NavTo<IPgMain>();
@@ -30,7 +26,7 @@ public class WinVM : ViewModelBase
             Manga = mangaSources.First()
                 .GetMangasAsync(
                     new PaginationInfo(0, string.Empty, 0),
-                    "fight")
+                    "kingdom")
                 .Result.First()
         }, 0);
         //page!.ViewModel.PagesViewer.ViewModel.PagesProvider = pagesProvider;
@@ -48,6 +44,7 @@ public class WinVM : ViewModelBase
             OnPropertyChanged();
         }
     }
+
     public bool IsForwardStackOpen
     {
         get => isForwardStackOpen;

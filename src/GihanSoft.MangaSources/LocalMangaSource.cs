@@ -4,6 +4,7 @@ namespace GihanSoft.MangaSources;
 
 public class LocalMangaSource : MangaSource
 {
+    public override string Id { get; } = "GihanSoft.LocalManga";
     public override string Name { get; } = "GihanSoft manga source";
 
     public override Uri Icon { get; } = new Uri("https://static.thenounproject.com/png/1285340-200.png");

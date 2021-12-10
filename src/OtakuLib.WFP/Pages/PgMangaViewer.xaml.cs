@@ -2,6 +2,7 @@
 using OtakuLib.Logic.ViewModels;
 
 namespace OtakuLib.WPF.Pages;
+
 /// <summary>
 /// Interaction logic for PgMangaViewer.xaml
 /// </summary>

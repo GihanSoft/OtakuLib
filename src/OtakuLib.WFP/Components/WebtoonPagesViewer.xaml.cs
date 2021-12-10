@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
 
 using OtakuLib.Logic.Components;
 using OtakuLib.Logic.ViewModels;
 
 namespace OtakuLib.WPF.Components;
+
 /// <summary>
 /// Interaction logic for WebtoonPagesViewer.xaml
 /// </summary>

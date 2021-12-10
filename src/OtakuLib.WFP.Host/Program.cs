@@ -6,98 +6,100 @@ using GihanSoft.AppBase.Bootstrap;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using OtakuLib.WFP;
 using OtakuLib.WFP.Host;
 
-namespace OtakuLib.WPF.Host
+using Serilog;
+
+namespace OtakuLib.WPF.Host;
+
+public static class Program
 {
-    public static class Program
+    [STAThread]
+    public static int Main()
     {
-        [STAThread]
-        public static int Main()
-        {
-            try
-            {
-                var initializeTask = Task.Run(BackgroundThread);
+        var shellLogPath = @"%AppData%\GihanSoft\OtakuLib\logs\shellLog-.log";
 
-                App app = new();
-                app.DispatcherUnhandledException += OnDispatcherUnhandledException;
-                app.InitializeComponent();
-
-                using var serviceProvider = initializeTask
-                    .ConfigureAwait(false)
-                    .GetAwaiter()
-                    .GetResult();
-
-                ActivatorUtilities.GetServiceOrCreateInstance<Bootstrap.InitializerUI>(serviceProvider)
-                    .FullInitialize(serviceProvider);
-
-                var win = ActivatorUtilities.GetServiceOrCreateInstance<Win>(serviceProvider);
-                return app.Run(win);
-            }
-            catch (Exception ex) when (ex is not SystemException)
-            {
-                HandleException(ex);
-                return ex.HResult;
-            }
-        }
-
-        private static void HandleException(Exception exception)
-        {
-            throw exception;
-        }
-
-        private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-            HandleException(e.Exception);
-            e.Handled = true;
-        }
-
-        private static ServiceProvider BackgroundThread()
-        {
-            var configRoot = new ConfigurationBuilder()
-                .AddJsonFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json"))
 #if DEBUG
-                .AddJsonFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.develop.json"))
+        shellLogPath = shellLogPath.Replace("%AppData%", @".\data", StringComparison.Ordinal);
+#else
+        shellLogPath = Environment.ExpandEnvironmentVariables(shellLogPath);
 #endif
-                .Build();
 
-            ServiceCollection services = new();
+        using var logger = new LoggerConfiguration()
+            .WriteTo.Async(config => config.File(shellLogPath, rollingInterval: RollingInterval.Day))
+            .CreateLogger();
 
-            services.AddSingleton<IConfiguration>(configRoot);
-
-            var serviceProvider = services.BuildServiceProvider();
-
-            ActivatorUtilities.GetServiceOrCreateInstance<Logic.Bootstrap.ServiceSetup>(serviceProvider).ConfigureServices(services);
-            ActivatorUtilities.GetServiceOrCreateInstance<Bootstrap.ServiceSetup>(serviceProvider).ConfigureServices(services);
-
-            serviceProvider.Dispose();
-            serviceProvider = services.BuildServiceProvider();
-
-            ActivatorUtilities.GetServiceOrCreateInstance<Logic.Bootstrap.Initializer>(serviceProvider)
-                .FullInitialize(serviceProvider);
-            ActivatorUtilities.GetServiceOrCreateInstance<Bootstrap.Initializer>(serviceProvider)
-                .FullInitialize(serviceProvider);
-
-            return serviceProvider;
-        }
-
-        private static void FullInitialize(this IInitializer initializer, ServiceProvider serviceProvider)
+        App app;
+        Win win;
+        try
         {
-            var conditionProvider = serviceProvider.GetRequiredService<IInitializeConditionProvider>();
-            if (conditionProvider.IsFirstRun())
-            {
-                initializer.FirstRunInitialize();
-            }
+            var initializeTask = Task.Run(BackgroundThread);
 
-            if (conditionProvider.IsUpdate())
-            {
-                initializer.UpdateInitialize();
-            }
+            app = new();
+            app.DispatcherUnhandledException += OnDispatcherUnhandledException;
+            app.InitializeComponent();
 
-            initializer.Initialize();
+#pragma warning disable VSTHRD002 // Avoid problematic synchronous waits
+            using var serviceProvider = initializeTask.Result;
+#pragma warning restore VSTHRD002 // Avoid problematic synchronous waits
 
-            _ = Task.Run(() => initializer.LateInitialize()).ConfigureAwait(false);
+            ActivatorUtilities.GetServiceOrCreateInstance<Bootstrap.InitializerUI>(serviceProvider)
+                .FullInitialize(serviceProvider);
+            win = ActivatorUtilities.GetServiceOrCreateInstance<Win>(serviceProvider);
         }
+        catch (Exception ex) when (ex is not SystemException)
+        {
+            logger.Error(ex, "startup error");
+            throw;
+        }
+
+        try
+        {
+            return app.Run(win);
+        }
+        catch (Exception ex)
+        {
+            logger.Error(ex, "fetal error");
+            throw;
+        }
+    }
+
+    private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        Log.Logger.Error("Dispatcher not handled exception", e.Exception);
+    }
+
+    private static ServiceProvider BackgroundThread()
+    {
+        var configRoot = new ConfigurationBuilder()
+            .AddJsonFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json"))
+#if DEBUG
+            .AddJsonFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.develop.json"))
+#endif
+            .Build();
+
+        Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(configRoot)
+            .CreateLogger();
+
+        ServiceCollection services = new();
+
+        services.AddSingleton<IConfiguration>(configRoot);
+        services.AddLogging(builder => builder.AddSerilog(dispose: true));
+
+        var serviceProvider = services.BuildServiceProvider();
+
+        ActivatorUtilities.GetServiceOrCreateInstance<Logic.Bootstrap.ServiceSetup>(serviceProvider).ConfigureServices(services);
+        ActivatorUtilities.GetServiceOrCreateInstance<Bootstrap.ServiceSetup>(serviceProvider).ConfigureServices(services);
+
+        serviceProvider.Dispose();
+        serviceProvider = services.BuildServiceProvider();
+
+        ActivatorUtilities.GetServiceOrCreateInstance<Logic.Bootstrap.Initializer>(serviceProvider)
+            .FullInitialize(serviceProvider);
+        ActivatorUtilities.GetServiceOrCreateInstance<Bootstrap.Initializer>(serviceProvider)
+            .FullInitialize(serviceProvider);
+
+        return serviceProvider;
     }
 }

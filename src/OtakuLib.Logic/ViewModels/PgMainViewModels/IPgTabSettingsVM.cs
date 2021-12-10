@@ -6,4 +6,3 @@ public interface IPgTabSettingsVM
 {
     public ICommand command { get; }
 }
-

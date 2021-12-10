@@ -1,36 +1,36 @@
 ﻿<UserControl
     x:Class="OtakuLib.WPF.Pages.PgMainTabs.PgTabBrowse"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800"
     x:Name="This"
     DataContext="{Binding ViewModel, ElementName=This}">
-    <TabControl>
-        <TabItem Header="Manga">
-            <ScrollViewer Focusable="False">
-                <ItemsControl ItemsSource="{Binding Path=MangaSources}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Margin="5" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Viewbox Width="90" Height="160">
-                                <Button Command="{Binding ViewModel.CmdOpenSource, ElementName=This}" CommandParameter="{Binding}">
-                                    <DockPanel Width="90" Height="160">
-                                        <TextBlock Text="{Binding Name}" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" DockPanel.Dock="Bottom" />
-                                        <Image Source="{Binding Icon}" />
-                                    </DockPanel>
-                                </Button>
-                            </Viewbox>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </TabItem>
-    </TabControl>
+  <TabControl>
+    <TabItem Header="Manga">
+      <ScrollViewer Focusable="False">
+        <ItemsControl ItemsSource="{Binding Path=MangaSources}">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <WrapPanel Margin="5" />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Viewbox Width="90" Height="160">
+                <Button Command="{Binding ViewModel.CmdOpenSource, ElementName=This}" CommandParameter="{Binding}">
+                  <DockPanel Width="90" Height="160">
+                    <TextBlock Text="{Binding Name}" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" DockPanel.Dock="Bottom" />
+                    <Image Source="{Binding Icon}" />
+                  </DockPanel>
+                </Button>
+              </Viewbox>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+    </TabItem>
+  </TabControl>
 </UserControl>

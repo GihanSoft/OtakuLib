@@ -1,87 +1,87 @@
 ﻿<gnav:Page
     x:Class="OtakuLib.WPF.Pages.PgMain"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:gnav="http://gihansoft.ir/netfx/xaml/navigation"
-    xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pg="clr-namespace:OtakuLib.WPF.Pages"
-    mc:Ignorable="d"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:gnav="http://gihansoft.ir/netfx/xaml/navigation"
+  xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:pg="clr-namespace:OtakuLib.WPF.Pages"
+  mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="400"
     DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}">
-    <gnav:Page.Resources>
-        <Style x:Key="HamberIcon" TargetType="icon:PackIconMaterial">
-            <Setter Property="Height" Value="24" />
-            <Setter Property="Width" Value="{Binding Height, RelativeSource={RelativeSource Self}}" />
-            <Setter Property="Margin" Value="8" />
-            <Setter Property="DockPanel.Dock" Value="Left" />
-        </Style>
+  <gnav:Page.Resources>
+    <Style x:Key="HamberIcon" TargetType="icon:PackIconMaterial">
+      <Setter Property="Height" Value="24" />
+      <Setter Property="Width" Value="{Binding Height, RelativeSource={RelativeSource Self}}" />
+      <Setter Property="Margin" Value="8" />
+      <Setter Property="DockPanel.Dock" Value="Left" />
+    </Style>
 
-        <Style x:Key="HamberButton" TargetType="Button">
-            <Setter Property="Focusable" Value="False" />
-            <Setter Property="Height" Value="40" />
-            <Setter Property="Background" Value="Transparent" />
-            <!--<Setter Property="mah:ControlsHelper.CornerRadius" Value="0" />-->
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="FontWeight" Value="Normal" />
-            <Setter Property="FontSize" Value="24" />
-            <!--<Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />-->
-            <Setter Property="BorderThickness" Value="0" />
-        </Style>
+    <Style x:Key="HamberButton" TargetType="Button">
+      <Setter Property="Focusable" Value="False" />
+      <Setter Property="Height" Value="40" />
+      <Setter Property="Background" Value="Transparent" />
+      <!--<Setter Property="mah:ControlsHelper.CornerRadius" Value="0" />-->
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="FontWeight" Value="Normal" />
+      <Setter Property="FontSize" Value="24" />
+      <!--<Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />-->
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
 
-        <Style x:Key="HamberAccessText" TargetType="AccessText">
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="LineHeight" Value="20" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="10 0" />
-        </Style>
-    </gnav:Page.Resources>
-    <Grid>
-        <DockPanel
+    <Style x:Key="HamberAccessText" TargetType="AccessText">
+      <Setter Property="FontSize" Value="20" />
+      <Setter Property="LineHeight" Value="20" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="Margin" Value="10 0" />
+    </Style>
+  </gnav:Page.Resources>
+  <Grid>
+    <DockPanel
             Width="256"
             HorizontalAlignment="Left">
-            <Button
+      <Button
                 DockPanel.Dock="Top"
                 ToolTip="(HotKey:Shift+Ecs)"
                 Style="{DynamicResource HamberButton}">
-                <DockPanel>
-                    <icon:PackIconMaterial
+        <DockPanel>
+          <icon:PackIconMaterial
                         Kind="Menu"
                         Style="{DynamicResource HamberIcon}" />
-                </DockPanel>
-            </Button>
+        </DockPanel>
+      </Button>
 
-            <StackPanel DockPanel.Dock="Top">
-                <Button
+      <StackPanel DockPanel.Dock="Top">
+        <Button
                     Style="{DynamicResource HamberButton}">
-                    <DockPanel>
-                        <icon:PackIconMaterial
+          <DockPanel>
+            <icon:PackIconMaterial
                             Kind="Bookshelf"
                             Style="{DynamicResource HamberIcon}" />
-                        <AccessText
+            <AccessText
                             Text="_Manga Library"
                             Style="{DynamicResource HamberAccessText}" />
-                    </DockPanel>
-                </Button>
+          </DockPanel>
+        </Button>
 
-                <Button
+        <Button
                     Style="{DynamicResource HamberButton}">
-                    <DockPanel>
-                        <icon:PackIconMaterial
+          <DockPanel>
+            <icon:PackIconMaterial
                             Kind="ArchiveSearchOutline"
                             Style="{DynamicResource HamberIcon}" />
-                        <AccessText
+            <AccessText
                             Text="_Sources"
                             Style="{DynamicResource HamberAccessText}" />
-                    </DockPanel>
-                </Button>
-            </StackPanel>
-        </DockPanel>
+          </DockPanel>
+        </Button>
+      </StackPanel>
+    </DockPanel>
 
-        <ContentControl
+    <ContentControl
             Margin="40 0 0 0"
             Content="{Binding SelectedTab, RelativeSource={RelativeSource AncestorType=pg:PgMain}}" />
-    </Grid>
+  </Grid>
 </gnav:Page>

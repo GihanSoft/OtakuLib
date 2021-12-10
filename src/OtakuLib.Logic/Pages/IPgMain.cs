@@ -4,5 +4,4 @@ namespace OtakuLib.Logic.Pages;
 
 public interface IPgMain : IPage
 {
-
 }

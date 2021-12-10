@@ -44,7 +44,7 @@ public class ServiceSetup : IServiceSetup
     {
         var pages = Assembly.GetExecutingAssembly()
             .GetTypes()
-            .Where(type => type.IsSubclassOf(typeof(Page)));
+            .Where(type => type.IsSubclassOf(typeof(GihanSoft.Navigation.WPF.Page)));
 
         foreach (var page in pages)
         {

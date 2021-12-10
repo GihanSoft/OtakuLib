@@ -1,6 +1,6 @@
-﻿using OtakuLib.MangaSourceBase;
+﻿using System.Collections.ObjectModel;
 
-using System.Collections.ObjectModel;
+using OtakuLib.MangaSourceBase;
 
 namespace OtakuLib.Logic.Models;
 
@@ -20,6 +20,7 @@ public class LibManga
     public Manga? Manga { get; set; }
     public Uri? Cover { get; set; }
     public string? Title { get; set; }
+
     public ReadOnlyObservableCollection<LibMangaChapter> Chapters
     {
         get

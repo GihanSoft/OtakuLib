@@ -81,9 +81,11 @@ public class ServiceSetup : IServiceSetup
                 case 0:
                     _ = services.AddTransient(vm);
                     break;
+
                 case 1:
                     _ = services.AddTransient(interfaces[0], vm);
                     break;
+
                 default:
                     foreach (var definition in interfaces)
                     {

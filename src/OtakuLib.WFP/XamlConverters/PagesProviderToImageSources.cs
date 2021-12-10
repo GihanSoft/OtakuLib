@@ -17,7 +17,8 @@ public sealed class PagesProviderToImageSources : IValueConverter
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is not PagesProvider pagesProvider) { return value; }
+        if (value is not PagesProvider pagesProvider)
+        { return value; }
 
         var collection = new ObservableCollection<ImageSource>();
         _ = FillCollectionAsync(pagesProvider, collection);

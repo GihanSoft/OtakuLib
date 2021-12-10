@@ -4,4 +4,3 @@ public interface IPgTabAboutVM
 {
     public string Version { get; }
 }
-

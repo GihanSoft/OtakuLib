@@ -12,6 +12,8 @@ namespace OtakuLib.Logic.ViewModels
         LibManga LibManga { get; }
         int Chapter { get; set; }
 
+        bool ShowTopBar { get; set; }
+
         public void SetLibManga(LibManga libManga, int chapter);
     }
 }

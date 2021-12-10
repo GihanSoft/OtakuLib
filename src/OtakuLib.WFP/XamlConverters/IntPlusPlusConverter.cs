@@ -11,14 +11,16 @@ public sealed class IntPlusPlusConverter : IValueConverter
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is int i) { return ++i; }
+        if (value is int i)
+        { return ++i; }
 
         return value;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is int i) { return --i; }
+        if (value is int i)
+        { return --i; }
 
         return value;
     }

@@ -1,8 +1,7 @@
-﻿using System.Windows.Controls;
-
-using OtakuLib.Logic.ViewModels.PgMainViewModels;
+﻿using OtakuLib.Logic.ViewModels.PgMainViewModels;
 
 namespace OtakuLib.WPF.Pages.PgMainTabs;
+
 /// <summary>
 /// Interaction logic for PgTabBrowse.xaml
 /// </summary>

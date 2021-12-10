@@ -1,30 +1,30 @@
 ﻿<gnav:Page
     x:Class="OtakuLib.WPF.Pages.PgMangaViewer"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:gnav="http://gihansoft.ir/netfx/xaml/navigation"
-    xmlns:hc="https://handyorg.github.io/handycontrol"
-    xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    xmlns:conv="clr-namespace:OtakuLib.WPF.XamlConverters"
-    mc:Ignorable="d"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:gnav="http://gihansoft.ir/netfx/xaml/navigation"
+  xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:conv="clr-namespace:OtakuLib.WPF.XamlConverters"
+  xmlns:hc="https://handyorg.github.io/handycontrol"
+  mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800"
     DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}">
-    <DockPanel>
-        <Grid DockPanel.Dock="Top" Height="32" Background="{DynamicResource Bg}">
-            <StackPanel Orientation="Horizontal" Margin="1">
-                <Button Content="{icon:Material Kind=BookArrowLeft}" Style="{DynamicResource toolBtn}" />
-                <hc:ComboBox
+  <DockPanel>
+    <Grid DockPanel.Dock="Top" Height="32" Background="{DynamicResource Bg}">
+      <StackPanel Orientation="Horizontal" Margin="1">
+        <Button Content="{icon:Material Kind=BookArrowLeft}" Style="{DynamicResource toolBtn}" />
+        <hc:ComboBox
                     ItemsSource="{Binding LibManga.Chapters}"
                     SelectedIndex="{Binding Chapter, Mode=TwoWay}"
                     DisplayMemberPath="Title"
                     Width="200" />
-                <Button Content="{icon:Material Kind=BookArrowRight}" Style="{DynamicResource toolBtn}" />
+        <Button Content="{icon:Material Kind=BookArrowRight}" Style="{DynamicResource toolBtn}" />
 
-                <hc:Divider LineStrokeThickness="2" Orientation="Vertical" />
+        <hc:Divider LineStrokeThickness="2" Orientation="Vertical" />
 
-                <hc:TextBox
+        <hc:TextBox
                     Text="{Binding PagesViewer.ViewModel.Page,
                         Converter={x:Static conv:IntPlusPlusConverter.Default},
                         Mode=TwoWay,
@@ -32,30 +32,29 @@
                         Delay=200}"
                     Width="40"
                     TextAlignment="Center" />
-                <hc:SimpleText Text="/" VerticalAlignment="Center" Margin="5 0" />
-                <hc:SimpleText Text="{Binding PagesViewer.ViewModel.PagesProvider.Count}" VerticalAlignment="Center" />
+        <hc:SimpleText Text="/" VerticalAlignment="Center" Margin="5 0" />
+        <hc:SimpleText Text="{Binding PagesViewer.ViewModel.PagesProvider.Count}" VerticalAlignment="Center" />
 
-                <hc:Divider LineStrokeThickness="2" Orientation="Vertical" />
+        <hc:Divider LineStrokeThickness="2" Orientation="Vertical" />
 
-                <Button
+        <Button
                     Content="{icon:Material Kind=MagnifyMinusOutline}"
                     Style="{DynamicResource toolBtn}"
                     Click="ZoomOutBtn_Click" />
-                <hc:TextBox
+        <hc:TextBox
                     Text="{Binding PagesViewer.ViewModel.Zoom,
                         Converter={x:Static conv:Number2Percentage.Default},
                         Mode=TwoWay,
                         UpdateSourceTrigger=PropertyChanged,
-                        Delay=200}"
-                    />
-                <Button
+                        Delay=200}" />
+        <Button
                     Content="{icon:Material Kind=MagnifyPlusOutline}"
                     Style="{DynamicResource toolBtn}"
                     Click="ZoomInBtn_Click" />
 
-                <hc:Divider LineStrokeThickness="2" Orientation="Vertical" />
+        <hc:Divider LineStrokeThickness="2" Orientation="Vertical" />
 
-                <hc:ComboBox
+        <hc:ComboBox
                     Width="200"
                     Text="{Binding PagesViewer.Title, Mode=OneWay}"
                     DisplayMemberPath="Title"
@@ -63,9 +62,9 @@
                     SelectedItem="{Binding PagesViewer, Mode=TwoWay}"
                     IsReadOnly="True"
                     IsEditable="True">
-                </hc:ComboBox>
-            </StackPanel>
-        </Grid>
-        <ContentPresenter Content="{Binding PagesViewer}" />
-    </DockPanel>
+        </hc:ComboBox>
+      </StackPanel>
+    </Grid>
+    <ContentPresenter Content="{Binding PagesViewer}" />
+  </DockPanel>
 </gnav:Page>

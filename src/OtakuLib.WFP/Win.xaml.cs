@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-using OtakuLib.WPF.ViewModels;
+﻿using OtakuLib.WPF.ViewModels;
 
 namespace OtakuLib.WPF;
 

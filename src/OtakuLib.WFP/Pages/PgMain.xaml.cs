@@ -1,10 +1,9 @@
-﻿using System.Windows;
-
-using OtakuLib.Logic.Pages;
+﻿using OtakuLib.Logic.Pages;
 using OtakuLib.Logic.ViewModels.PgMainViewModels;
 using OtakuLib.WPF.Pages.PgMainTabs;
 
 namespace OtakuLib.WPF.Pages;
+
 /// <summary>
 /// Interaction logic for PgMain.xaml
 /// </summary>

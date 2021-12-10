@@ -6,7 +6,8 @@ internal static class DirectoryInfoExtensions
     {
         ArgumentNullException.ThrowIfNull(directoryInfo);
 
-        if (directoryInfo.Exists) { return; }
+        if (directoryInfo.Exists)
+        { return; }
 
         if (directoryInfo.Parent?.Exists == false) //also check null
         {

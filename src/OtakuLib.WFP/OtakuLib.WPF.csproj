@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net6.0-windows</TargetFramework>
-        <UseWPF>true</UseWPF>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="HandyControls" Version="3.3.9" />
-        <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="HandyControls" Version="3.3.9" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\GihanSoft.Navigation\GihanSoft.Navigation.WPF\GihanSoft.Navigation.WPF.csproj" />
-        <ProjectReference Include="..\OtakuLib.Logic\OtakuLib.Logic.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GihanSoft.Navigation\GihanSoft.Navigation.WPF\GihanSoft.Navigation.WPF.csproj" />
+    <ProjectReference Include="..\OtakuLib.Logic\OtakuLib.Logic.csproj" />
+  </ItemGroup>
 
 </Project>

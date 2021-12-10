@@ -1,12 +1,11 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using System.Windows.Threading;
 
 using OtakuLib.Logic.Components;
 using OtakuLib.Logic.ViewModels;
 
 namespace OtakuLib.WPF.Components;
+
 /// <summary>
 /// Interaction logic for SinglePagePagesViewer.xaml
 /// </summary>
@@ -28,7 +27,8 @@ public partial class SinglePagePagesViewer : UserControl, IPagesViewer
 
     private void ScrollViewer_PreviewKeyDown(object sender, KeyEventArgs e)
     {
-        if (sender is not ScrollViewer scrollViewer) { return; }
+        if (sender is not ScrollViewer scrollViewer)
+        { return; }
 
         var rtl = scrollViewer.FlowDirection == FlowDirection.RightToLeft;
         var isHScrollStart = scrollViewer.HorizontalOffset == 0;
@@ -47,6 +47,7 @@ public partial class SinglePagePagesViewer : UserControl, IPagesViewer
                 scrollViewer.ScrollToHorizontalOffset(scrollViewer.ScrollableWidth);
                 scrollViewer.ScrollToVerticalOffset(scrollViewer.ScrollableHeight);
                 break;
+
             case Key.PageDown:
             case Key.Left or Key.A when rtl && isHScrollEnd:
             case Key.Right or Key.D when !rtl && isHScrollEnd:
@@ -55,6 +56,7 @@ public partial class SinglePagePagesViewer : UserControl, IPagesViewer
                 scrollViewer.ScrollToHorizontalOffset(0);
                 scrollViewer.ScrollToVerticalOffset(0);
                 break;
+
             default:
                 e.Handled = false;
                 break;
@@ -63,7 +65,8 @@ public partial class SinglePagePagesViewer : UserControl, IPagesViewer
 
     private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
     {
-        if (sender is not ScrollViewer scrollViewer) { return; }
+        if (sender is not ScrollViewer scrollViewer)
+        { return; }
 
         static async Task AsyncMothod(ScrollViewer scrollViewer, MouseWheelEventArgs e, IPagesViewerVM vm)
         {

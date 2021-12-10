@@ -44,4 +44,3 @@ public class AppDB : IDisposable
         GC.SuppressFinalize(this);
     }
 }
-

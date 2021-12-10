@@ -4,20 +4,28 @@ using GihanSoft.AppBase.Services;
 using OtakuLib.Logic.Components;
 using OtakuLib.Logic.Models;
 using OtakuLib.Logic.Models.Settings;
+using OtakuLib.Logic.Services;
 
 namespace OtakuLib.Logic.ViewModels;
 
 internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
 {
+    private readonly IFullScreenProvider fullScreenProvider;
+
     private LibManga libManga;
     private IPagesViewer pagesViewer;
     private int chapter;
+    private bool showTopBar;
 
-    public PgMangaViewerVM(IEnumerable<IPagesViewer> availablePagesViewers, IDataManager<MainSettings> settings)
+    public PgMangaViewerVM(
+        IEnumerable<IPagesViewer> availablePagesViewers,
+        IDataManager<MainSettings> settings,
+        IFullScreenProvider fullScreenProvider)
     {
         var defaultMangaViewerId = settings.Fetch().MangaLibSettings.DefaultMangaViewerId;
 
         AvailablePagesViewers = availablePagesViewers;
+        this.fullScreenProvider = fullScreenProvider;
         pagesViewer = availablePagesViewers.FirstOrDefault(
             viewer => viewer.Id == defaultMangaViewerId,
             availablePagesViewers.First());
@@ -31,10 +39,12 @@ internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
         get => pagesViewer;
         set
         {
-            if (value is null) { return; }
+            if (value is null)
+            { return; }
 
             value.ViewModel.CopyState(pagesViewer.ViewModel);
-            if (LibManga is not null) { LibManga.PagesViewerId = value.Id; }
+            if (LibManga is not null)
+            { LibManga.PagesViewerId = value.Id; }
 
             pagesViewer = value;
             OnPropertyChanged();
@@ -53,6 +63,16 @@ internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
             pagesViewer.ViewModel.Offset = 0;
 
             chapter = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool ShowTopBar
+    {
+        get => showTopBar;
+        set
+        {
+            showTopBar = value;
             OnPropertyChanged();
         }
     }

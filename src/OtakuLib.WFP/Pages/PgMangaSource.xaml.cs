@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Windows;
 using System.Windows.Data;
 
 using OtakuLib.Logic.Pages;
 using OtakuLib.Logic.ViewModels;
 
 namespace OtakuLib.WPF.Pages;
+
 /// <summary>
 /// Interaction logic for PgMangaSource.xaml
 /// </summary>

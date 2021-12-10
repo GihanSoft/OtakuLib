@@ -14,81 +14,83 @@
     ShowTitle="False"
     DataContext="{Binding ViewModel, ElementName=This}"
     NonClientAreaHeight="30">
-    <hc:Window.NonClientAreaContent>
-        <Grid>
-            <Grid.Resources>
-                <Style TargetType="hc:SplitButton" BasedOn="{StaticResource SplitButtonBaseStyle}">
-                    <Setter Property="BorderThickness" Value="0" />
-                    <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-                    <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
-                    <Setter Property="Focusable" Value="False" />
+  <hc:Window.NonClientAreaContent>
+    <Grid>
+      <Grid.Resources>
+        <Style TargetType="hc:SplitButton" BasedOn="{StaticResource SplitButtonBaseStyle}">
+          <Setter Property="BorderThickness" Value="0" />
+          <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+          <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+          <Setter Property="Focusable" Value="False" />
 
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource BackgroundBrush}" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
+          <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{DynamicResource BackgroundBrush}" />
+            </Trigger>
+          </Style.Triggers>
+        </Style>
 
-                <Style TargetType="Button" BasedOn="{StaticResource ButtonDefault}">
-                    <Setter Property="BorderThickness" Value="0" />
-                    <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
-                </Style>
-            </Grid.Resources>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <hc:SplitButton
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonDefault}">
+          <Setter Property="BorderThickness" Value="0" />
+          <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+        </Style>
+      </Grid.Resources>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+        <hc:SplitButton
                     Content="{icon:Material Kind=ArrowLeft}"
                     IsDropDownOpen="{Binding IsBackStackOpen, Mode=TwoWay}"
                     Command="{Binding PageNavigator.CmdNavBack}">
-                    <hc:SplitButton.DropDownContent>
-                        <comp:ItemsControl2
+          <hc:SplitButton.DropDownContent>
+            <comp:ItemsControl2
                             ItemsSource="{Binding PageNavigator.BackStack}">
-                            <comp:ItemsControl2.ItemTemplate>
-                                <DataTemplate>
-                                    <Button
+              <comp:ItemsControl2.ItemTemplate>
+                <DataTemplate>
+                  <Button
                                         Content="{Binding Title}"
                                         CommandParameter="{Binding}"
                                         Command="{Binding ViewModel.PageNavigator.CmdNavBackUntil, RelativeSource={RelativeSource AncestorType=local:Win}}"
-                                        Click="NavStackBtn_Click"
-                                        />
-                                </DataTemplate>
-                            </comp:ItemsControl2.ItemTemplate>
-                        </comp:ItemsControl2>
-                    </hc:SplitButton.DropDownContent>
-                </hc:SplitButton>
+                                        Click="NavStackBtn_Click" />
+                </DataTemplate>
+              </comp:ItemsControl2.ItemTemplate>
+            </comp:ItemsControl2>
+          </hc:SplitButton.DropDownContent>
+        </hc:SplitButton>
 
-                <hc:SplitButton
+        <hc:SplitButton
                     Content="{icon:Material Kind=ArrowRight}"
                     IsDropDownOpen="{Binding IsForwardStackOpen, Mode=TwoWay}"
                     Command="{Binding PageNavigator.CmdNavForward}">
-                    <hc:SplitButton.DropDownContent>
-                        <comp:ItemsControl2 ItemsSource="{Binding PageNavigator.ForwardStack}">
-                            <comp:ItemsControl2.ItemTemplate>
-                                <DataTemplate>
-                                    <Button
+          <hc:SplitButton.DropDownContent>
+            <comp:ItemsControl2 ItemsSource="{Binding PageNavigator.ForwardStack}">
+              <comp:ItemsControl2.ItemTemplate>
+                <DataTemplate>
+                  <Button
                                         Content="{Binding Title}"
                                         CommandParameter="{Binding}"
                                         Command="{Binding ViewModel.PageNavigator.CmdNavForwardUntil, RelativeSource={RelativeSource AncestorType=local:Win}}"
-                                        Click="NavStackBtn_Click"
-                                        />
-                                </DataTemplate>
-                            </comp:ItemsControl2.ItemTemplate>
-                        </comp:ItemsControl2>
-                    </hc:SplitButton.DropDownContent>
-                </hc:SplitButton>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button
+                                        Click="NavStackBtn_Click" />
+                </DataTemplate>
+              </comp:ItemsControl2.ItemTemplate>
+            </comp:ItemsControl2>
+          </hc:SplitButton.DropDownContent>
+        </hc:SplitButton>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button
                     Content="{icon:Material Kind=Fullscreen}"
                     CommandParameter="{Binding IsFullScreen, ElementName=This, Converter={StaticResource Boolean2BooleanReConverter}}"
-                    Command="{Binding FullScreenProvider.CmdSetFullScreen}"
-                    />
-            </StackPanel>
-        </Grid>
-    </hc:Window.NonClientAreaContent>
-    <hc:Window.InputBindings>
-        <KeyBinding Key="Left" Modifiers="Alt" Command="{Binding PageNavigator.CmdNavBack}" />
-        <KeyBinding Key="Right" Modifiers="Alt" Command="{Binding PageNavigator.CmdNavForward}" />
-    </hc:Window.InputBindings>
-    <ContentPresenter Focusable="False" Content="{Binding PageNavigator.CurrentPage}" />
+                    Command="{Binding FullScreenProvider.CmdSetFullScreen}" />
+      </StackPanel>
+    </Grid>
+  </hc:Window.NonClientAreaContent>
+  <hc:Window.InputBindings>
+    <KeyBinding Key="Left" Modifiers="Alt" Command="{Binding PageNavigator.CmdNavBack}" />
+    <KeyBinding Key="Right" Modifiers="Alt" Command="{Binding PageNavigator.CmdNavForward}" />
+
+    <KeyBinding
+          Key="F11"
+          CommandParameter="{Binding IsFullScreen, ElementName=This, Converter={StaticResource Boolean2BooleanReConverter}}"
+          Command="{Binding FullScreenProvider.CmdSetFullScreen}" />
+  </hc:Window.InputBindings>
+  <ContentPresenter Focusable="False" Content="{Binding PageNavigator.CurrentPage}" />
 </hc:Window>

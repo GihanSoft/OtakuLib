@@ -11,7 +11,8 @@ public sealed class Number2Percentage : IValueConverter
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is double d) { return (int)(d * 100); }
+        if (value is double d)
+        { return (int)(d * 100); }
 
         return value;
     }
