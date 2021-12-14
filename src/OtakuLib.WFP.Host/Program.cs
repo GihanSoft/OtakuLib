@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OtakuLib.WFP.Host;
 
 using Serilog;
+using Serilog.Core;
 
 namespace OtakuLib.WPF.Host;
 
@@ -17,18 +18,6 @@ public static class Program
     [STAThread]
     public static int Main()
     {
-        var shellLogPath = @"%AppData%\GihanSoft\OtakuLib\logs\shellLog-.log";
-
-#if DEBUG
-        shellLogPath = shellLogPath.Replace("%AppData%", @".\data", StringComparison.Ordinal);
-#else
-        shellLogPath = Environment.ExpandEnvironmentVariables(shellLogPath);
-#endif
-
-        using var logger = new LoggerConfiguration()
-            .WriteTo.Async(config => config.File(shellLogPath, rollingInterval: RollingInterval.Day))
-            .CreateLogger();
-
         App app;
         Win win;
         try
@@ -47,9 +36,13 @@ public static class Program
                 .FullInitialize(serviceProvider);
             win = ActivatorUtilities.GetServiceOrCreateInstance<Win>(serviceProvider);
         }
-        catch (Exception ex) when (ex is not SystemException)
+        catch (Exception ex)
         {
-            logger.Error(ex, "startup error");
+            {
+                using var logger = GetShellLogger();
+                logger.Error(ex, "startup error");
+            }
+
             throw;
         }
 
@@ -59,9 +52,28 @@ public static class Program
         }
         catch (Exception ex)
         {
-            logger.Error(ex, "fetal error");
+            {
+                using var logger = GetShellLogger();
+                logger.Error(ex, "runtime error");
+            }
+
             throw;
         }
+    }
+
+    private static Logger GetShellLogger()
+    {
+        var shellLogPath = @"%AppData%\GihanSoft\OtakuLib\logs\shellLog-.log";
+
+#if DEBUG
+        shellLogPath = shellLogPath.Replace("%AppData%", @".\data", StringComparison.Ordinal);
+#else
+        shellLogPath = Environment.ExpandEnvironmentVariables(shellLogPath);
+#endif
+
+        return new LoggerConfiguration()
+            .WriteTo.Async(config => config.File(shellLogPath, rollingInterval: RollingInterval.Day))
+            .CreateLogger();
     }
 
     private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
