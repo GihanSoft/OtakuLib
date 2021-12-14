@@ -1,0 +1,3 @@
+[submodule "src/GihanSoft.Navigation"]
+	path = src/GihanSoft.Navigation
+	url = https://github.com/GihanSoft/GihanSoft.Navigation.git
