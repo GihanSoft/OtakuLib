@@ -20,7 +20,7 @@
     </Grid.ColumnDefinitions>
     <Border Grid.Column="0" Background="Pink" />
     <GridSplitter ResizeBehavior="PreviousAndNext" Grid.Column="1" Width="5" Background="Black" />
-    <hc:ScrollViewer Grid.Column="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+    <hc:ScrollViewer Grid.Column="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Focusable="True">
       <ItemsControl ItemsSource="{Binding PagesProvider, Converter={x:Static conv:PagesProviderToImageSources.Default}}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
