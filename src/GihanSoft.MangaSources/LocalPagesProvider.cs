@@ -8,43 +8,64 @@ public class LocalPagesProvider : PagesProvider
 {
     private readonly string path;
     private readonly string[] files;
-    private readonly MemoryStream?[] memoryStreams;
+    private readonly MemoryStream?[] loadedPages;
 
     private bool disposed;
 
     public LocalPagesProvider(string path)
     {
-        disposed = false;
         this.path = path;
-        files = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
-        Array.Sort(files, NaturalComparer.OrdinalIgnoreCase);
-        memoryStreams = new MemoryStream[files.Length];
+        files = Directory.GetFiles(path, "*", SearchOption.AllDirectories)
+            .Where(FileTypeUtility.IsImage)
+            .NaturalOrderBy()
+            .ToArray();
+        loadedPages = new MemoryStream[files.Length];
     }
 
-    public override int Count => disposed ? throw new ObjectDisposedException(nameof(LocalMangaSource)) : files.Length;
+    public override int Count => disposed ? throw new ObjectDisposedException(nameof(LocalPagesProvider)) : files.Length;
 
     public override MemoryStream? GetPage(int page)
     {
         if (disposed)
-        { throw new ObjectDisposedException(nameof(LocalMangaSource)); }
-
-        return memoryStreams[page];
-    }
-
-    public override async Task LoadPageAsync(int page)
-    {
-        var bin = await File.ReadAllBytesAsync(files[page]).ConfigureAwait(false);
-        memoryStreams[page] = new MemoryStream(bin);
-    }
-
-    public override async Task UnLoadPageAsync(int page)
-    {
-        var memoryStream = memoryStreams[page];
-        if (memoryStream is not null)
         {
-            await memoryStream.DisposeAsync().ConfigureAwait(false);
-            memoryStreams[page] = null;
+            throw new ObjectDisposedException(nameof(LocalMangaSource));
         }
+
+        return loadedPages[page];
+    }
+
+    public override async Task LoadPageAsync(int page, CancellationToken cancellationToken = default)
+    {
+        if (disposed)
+        {
+            throw new ObjectDisposedException(nameof(LocalMangaSource));
+        }
+
+        var bin = await File.ReadAllBytesAsync(files[page], cancellationToken).ConfigureAwait(false);
+        loadedPages[page] = new MemoryStream(bin);
+    }
+
+    public override async Task LoadPageAsync(int page, IProgress<double> progress, CancellationToken cancellationToken = default)
+    {
+        await LoadPageAsync(page, cancellationToken).ConfigureAwait(false);
+        progress?.Report(1);
+    }
+
+    public override Task UnLoadPageAsync(int page)
+    {
+        if (disposed)
+        {
+            throw new ObjectDisposedException(nameof(SimpleHttpPagesProvider));
+        }
+
+        var mem = loadedPages[page];
+        if (mem is null)
+        {
+            return Task.CompletedTask;
+        }
+
+        loadedPages[page] = null;
+        return mem.DisposeAsync().AsTask();
     }
 
     protected override void Dispose(bool disposing)
@@ -52,7 +73,7 @@ public class LocalPagesProvider : PagesProvider
         disposed = true;
         if (disposing)
         {
-            foreach (var stream in memoryStreams)
+            foreach (var stream in loadedPages)
             {
                 stream?.Dispose();
             }

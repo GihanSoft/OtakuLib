@@ -1,20 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="LiteDB" Version="5.0.11" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="5.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.*" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\GihanSoft.AppBase\GihanSoft.AppBase.csproj" />
-        <ProjectReference Include="..\GihanSoft.MangaSources\GihanSoft.MangaSources.csproj" />
-        <ProjectReference Include="..\GihanSoft.Navigation\GihanSoft.Navigation.Abstraction\GihanSoft.Navigation.Abstraction.csproj" />
-        <ProjectReference Include="..\OtakuLib.MangaSource\OtakuLib.MangaSourceBase.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GihanSoft.AppBase\GihanSoft.AppBase.csproj" />
+    <ProjectReference Include="..\GihanSoft.MangaSources\GihanSoft.MangaSources.csproj" />
+    <ProjectReference Include="..\GihanSoft.Navigation\GihanSoft.Navigation.Abstraction\GihanSoft.Navigation.Abstraction.csproj" />
+    <ProjectReference Include="..\OtakuLib.MangaSource\OtakuLib.MangaSourceBase.csproj" />
+  </ItemGroup>
 
 </Project>

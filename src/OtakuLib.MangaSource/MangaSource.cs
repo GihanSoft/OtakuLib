@@ -5,6 +5,7 @@ public abstract class MangaSource
     public abstract string Id { get; }
     public abstract string Name { get; }
     public abstract Uri Icon { get; }
+    public abstract bool AllowDownload { get; }
 
     public abstract Task<Manga> GetMangaAsync(string id);
 

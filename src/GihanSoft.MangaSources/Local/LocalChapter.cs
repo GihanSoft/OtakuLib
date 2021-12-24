@@ -13,7 +13,7 @@ internal sealed class LocalChapter : Chapter
     {
         var isCompressed =
             File.Exists(Id) &&
-            FileTypeList.CompressedType.Contains(Path.GetExtension(Id), StringComparer.OrdinalIgnoreCase);
+            FileTypeUtility.CompressedExtensions.Contains(Path.GetExtension(Id), StringComparer.OrdinalIgnoreCase);
 
         var pagesProvider = isCompressed ?
             new CompressedPageProvider(Id) :

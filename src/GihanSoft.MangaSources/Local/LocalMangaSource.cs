@@ -8,6 +8,7 @@ public class LocalMangaSource : MangaSource
     public override string Name { get; } = "GihanSoft manga source";
 
     public override Uri Icon { get; } = new Uri("https://static.thenounproject.com/png/1285340-200.png");
+    public override bool AllowDownload { get; }
 
     public override Task<Manga> GetMangaAsync(string id)
     {

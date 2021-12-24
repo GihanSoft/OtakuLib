@@ -21,7 +21,7 @@ internal sealed class LocalManga : Manga
         var result = Directory.EnumerateFileSystemEntries(Id)
             .Where(e =>
                 Directory.Exists(e) ||
-                FileTypeList.CompressedType.Contains(Path.GetExtension(e), StringComparer.OrdinalIgnoreCase))
+                FileTypeUtility.CompressedExtensions.Contains(Path.GetExtension(e), StringComparer.OrdinalIgnoreCase))
             .NaturalOrderBy(x => x)
             .Select(dirPath => new LocalChapter(dirPath, Path.GetFileName(dirPath)) as Chapter);
 

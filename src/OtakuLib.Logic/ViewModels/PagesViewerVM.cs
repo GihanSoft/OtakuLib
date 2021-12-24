@@ -64,7 +64,7 @@ internal class PagesViewerVM : ViewModelBase, IPagesViewerVM
 
     public ICommand CmdMoveToPreviousPage { get; }
 
-    public void CopyState(IPagesViewerVM pagesViewer)
+    public void CopyStateFrom(IPagesViewerVM pagesViewer)
     {
         PagesProvider = pagesViewer.PagesProvider;
         Page = pagesViewer.Page;

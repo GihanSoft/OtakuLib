@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HandyControls" Version="3.3.9" />
-    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
+    <PackageReference Include="HandyControls" Version="3.3.*" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="*" />
   </ItemGroup>
 
   <ItemGroup>

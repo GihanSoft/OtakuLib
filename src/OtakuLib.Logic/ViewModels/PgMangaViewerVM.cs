@@ -42,7 +42,7 @@ internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
             if (value is null)
             { return; }
 
-            value.ViewModel.CopyState(pagesViewer.ViewModel);
+            value.ViewModel.CopyStateFrom(pagesViewer.ViewModel);
             if (LibManga is not null)
             { LibManga.PagesViewerId = value.Id; }
 

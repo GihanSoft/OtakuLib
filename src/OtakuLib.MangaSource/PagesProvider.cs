@@ -23,7 +23,14 @@ public abstract class PagesProvider : IDisposable
     /// load page from source (web, storage, etc) to <see cref="MemoryStream"/>.
     /// </summary>
     /// <param name="page">page number (start from 0).</param>
-    public abstract Task LoadPageAsync(int page);
+    public abstract Task LoadPageAsync(int page, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// load page from source (web, storage, etc) to <see cref="MemoryStream"/>.
+    /// </summary>
+    /// <param name="page">page number (start from 0).</param>
+    /// <param name="progress">progress of loading.</param>
+    public abstract Task LoadPageAsync(int page, IProgress<double> progress, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// unload page from ram to optimize ram usage. better to cache it on storage
