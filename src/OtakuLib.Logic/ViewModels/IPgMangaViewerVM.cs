@@ -3,17 +3,16 @@
 using OtakuLib.Logic.Components;
 using OtakuLib.Logic.Models;
 
-namespace OtakuLib.Logic.ViewModels
+namespace OtakuLib.Logic.ViewModels;
+
+public interface IPgMangaViewerVM : INotifyPropertyChanged
 {
-    public interface IPgMangaViewerVM : INotifyPropertyChanged
-    {
-        IEnumerable<IPagesViewer> AvailablePagesViewers { get; }
-        IPagesViewer PagesViewer { get; set; }
-        LibManga LibManga { get; }
-        int Chapter { get; set; }
+    IEnumerable<IPagesViewer> AvailablePagesViewers { get; }
+    IPagesViewer PagesViewer { get; set; }
+    LibManga LibManga { get; }
+    int Chapter { get; set; }
 
-        bool ShowTopBar { get; set; }
+    bool ShowTopBar { get; set; }
 
-        public void SetLibManga(LibManga libManga, int chapter);
-    }
+    public void SetLibManga(LibManga libManga, int chapter);
 }
