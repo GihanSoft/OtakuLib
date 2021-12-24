@@ -2,7 +2,7 @@
 
 using OtakuLib.MangaSourceBase;
 
-using SharpCompress.Readers;
+using SharpCompress.Archives;
 
 namespace GihanSoft.MangaSources;
 
@@ -11,23 +11,6 @@ namespace GihanSoft.MangaSources;
 /// </summary>
 internal class CompressedPageProvider : PagesProvider
 {
-    private static string[] GetPageNames(Stream stream)
-    {
-        stream.Position = 0;
-        using var reader = ReaderFactory.Open(stream);
-        List<string> pageNames = new();
-        while (reader.MoveToNextEntry())
-        {
-            if (!reader.Entry.IsDirectory && FileTypeUtility.IsImage(reader.Entry.Key))
-            {
-                pageNames.Add(reader.Entry.Key);
-            }
-        }
-
-        return pageNames.NaturalOrderBy().ToArray();
-    }
-
-    private readonly string[] pageNames;
     private readonly MemoryStream?[] loadedPages;
 
     private readonly bool ownStream;
@@ -49,8 +32,8 @@ internal class CompressedPageProvider : PagesProvider
         this.ownStream = ownStream;
         getStream = () => stream;
 
-        pageNames = GetPageNames(stream);
-        loadedPages = new MemoryStream[pageNames.Length];
+        using var archive = ArchiveFactory.Open(stream);
+        loadedPages = new MemoryStream[archive.Entries.Count(entry => !entry.IsDirectory)];
     }
 
     /// <summary>
@@ -65,15 +48,14 @@ internal class CompressedPageProvider : PagesProvider
         ownStream = true;
         getStream = () => File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
-        using var stream = getStream();
-        pageNames = GetPageNames(stream);
-        loadedPages = new MemoryStream[pageNames.Length];
+        using var archive = ArchiveFactory.Open(filePath);
+        loadedPages = new MemoryStream[archive.Entries.Count(entry => !entry.IsDirectory)];
     }
 
     /// <summary>
     /// Gets pages count.
     /// </summary>
-    public override int Count => disposed ? throw new ObjectDisposedException(nameof(CompressedPageProvider)) : pageNames.Length;
+    public override int Count => disposed ? throw new ObjectDisposedException(nameof(CompressedPageProvider)) : loadedPages.Length;
 
     public override MemoryStream? GetPage(int page)
     {
@@ -107,21 +89,21 @@ internal class CompressedPageProvider : PagesProvider
             return;
         }
 
-        var name = pageNames[page];
         var stream = getStream();
         try
         {
             stream.Position = 0;
 
-            using var reader = ReaderFactory.Open(stream);
-            while (reader.MoveToNextEntry() && !reader.Entry.Key.Equals(name, StringComparison.OrdinalIgnoreCase))
-            {
-            }
+            using var archive = ArchiveFactory.Open(stream);
 
             progress?.Report(0.25);
 
             var memStream = new MemoryStream();
-            reader.WriteEntryTo(memStream);
+            archive.Entries
+                .Where(entry => !entry.IsDirectory)
+                .NaturalOrderBy(entry => entry.Key)
+                .ElementAt(page)
+                .WriteTo(memStream);
             loadedPages[page] = memStream;
             progress?.Report(1);
         }
