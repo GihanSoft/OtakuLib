@@ -14,9 +14,15 @@ public partial class PgMangaViewer : IPgMangaViewer
     {
         ViewModel = viewModel;
         InitializeComponent();
+        IsVisibleChanged += PgMangaViewer_IsVisibleChanged;
     }
 
     public IPgMangaViewerVM ViewModel { get; }
+
+    private void PgMangaViewer_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        ViewModel.FullScreenProvider.IsFullScreen = false;
+    }
 
     private void ZoomOutBtn_Click(object sender, RoutedEventArgs e)
     {
