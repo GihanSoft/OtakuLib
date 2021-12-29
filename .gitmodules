@@ -1,3 +1,7 @@
 [submodule "src/GihanSoft.Navigation"]
 	path = src/GihanSoft.Navigation
 	url = https://github.com/GihanSoft/GihanSoft.Navigation.git
+
+[submodule "src/GihanSoft.String.NaturalComparer"]
+    path = src/GihanSoft.String.NaturalComparer
+    url = https://github.com/GihanSoft/NaturalStringComparer
