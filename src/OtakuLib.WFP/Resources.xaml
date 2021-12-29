@@ -22,5 +22,6 @@
     <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
     <Setter Property="Padding" Value="0" />
     <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
+    <Setter Property="Focusable" Value="False" />
   </Style>
 </ResourceDictionary>

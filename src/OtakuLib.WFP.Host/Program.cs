@@ -78,7 +78,7 @@ public static class Program
 
     private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        Log.Logger.Error("Dispatcher not handled exception", e.Exception);
+        Log.Logger.Error(e.Exception, "Dispatcher not handled exception");
     }
 
     private static ServiceProvider BackgroundThread()

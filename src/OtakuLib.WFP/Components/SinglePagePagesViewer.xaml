@@ -4,19 +4,18 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:components="clr-namespace:OtakuLib.WPF.Components"
   xmlns:conv="clr-namespace:OtakuLib.WPF.XamlConverters"
   xmlns:hc="https://handyorg.github.io/handycontrol"
   mc:Ignorable="d"
   d:DesignHeight="450" d:DesignWidth="800"
   x:Name="This"
-  DataContext="{Binding ViewModel, ElementName=This}">
+  DataContext="{Binding ViewModel, ElementName=This, Mode=OneTime}">
   <UserControl.Resources>
     <Style TargetType="hc:ScrollViewer" BasedOn="{StaticResource ScrollViewerBaseStyle}">
       <Style.Triggers>
         <Trigger Property="IsVisible" Value="True">
           <Setter Property="FocusManager.FocusedElement" Value="{Binding RelativeSource={RelativeSource Self}}" />
-          <Setter Property="BorderBrush" Value="Red" />
-          <Setter Property="BorderThickness" Value="5" />
         </Trigger>
       </Style.Triggers>
     </Style>
@@ -26,9 +25,10 @@
     HorizontalScrollBarVisibility="Auto"
     Focusable="True"
     FocusVisualStyle="{x:Null}"
+    ScrollChanged="ScrollViewer_ScrollChanged"
     PreviewKeyDown="ScrollViewer_PreviewKeyDown"
     PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
-    <Image>
+    <Image Source="{Binding ImageSource, RelativeSource={RelativeSource AncestorType={x:Type components:SinglePagePagesViewer}}}">
       <Image.MaxHeight>
         <MultiBinding Converter="{x:Static conv:ZaribConverter.Default}">
           <Binding Path="ViewportHeight" RelativeSource="{RelativeSource AncestorType=ScrollViewer}" />
@@ -41,12 +41,6 @@
           <Binding Path="Zoom" />
         </MultiBinding>
       </Image.MaxWidth>
-      <Image.Source>
-        <MultiBinding Converter="{x:Static conv:StreamToImageSource.Default}">
-          <Binding Path="PagesProvider" />
-          <Binding Path="Page" />
-        </MultiBinding>
-      </Image.Source>
     </Image>
   </hc:ScrollViewer>
 </UserControl>

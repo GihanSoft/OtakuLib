@@ -10,7 +10,7 @@
   xmlns:hc="https://handyorg.github.io/handycontrol"
   mc:Ignorable="d"
   d:DesignHeight="450" d:DesignWidth="800"
-  DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}">
+  DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}, Mode=OneTime}">
   <DockPanel>
     <Grid DockPanel.Dock="Top" Height="32" Background="{DynamicResource Bg}">
       <StackPanel Orientation="Horizontal" Margin="1">
@@ -19,6 +19,7 @@
           ItemsSource="{Binding LibManga.Chapters}"
           SelectedIndex="{Binding Chapter, Mode=TwoWay}"
           DisplayMemberPath="Title"
+          Focusable="False"
           Width="200" />
         <Button Content="{icon:Material Kind=BookArrowRight}" Style="{DynamicResource toolBtn}" />
 
