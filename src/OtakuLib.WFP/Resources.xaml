@@ -15,7 +15,6 @@
     <hc:ThemeResources />
     <hc:Theme />
   </ResourceDictionary.MergedDictionaries>
-  <SolidColorBrush x:Key="Bg">#FFF</SolidColorBrush>
 
   <Style x:Key="toolBtn" TargetType="Button" BasedOn="{StaticResource ButtonDefault}">
     <Setter Property="BorderThickness" Value="0" />
