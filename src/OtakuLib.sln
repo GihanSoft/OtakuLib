@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GihanSoft.String.NaturalCom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NaturalStringComparer.Unsafe", "GihanSoft.String.NaturalComparer\NaturalStringComparer.Unsafe\NaturalStringComparer.Unsafe.csproj", "{4A01E537-2717-44DF-B7F0-02149EE6E349}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{77E5783C-FDEF-4A1D-B70D-103B82396E5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -156,6 +158,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DFA4E939-E2A8-4BCB-A81B-0456FD691DF7} = {31B5AB6B-1283-408C-975A-66A2D5BDAB07}
 		{09F80EBD-E59B-4AEE-98D5-CB885C76EF9D} = {31B5AB6B-1283-408C-975A-66A2D5BDAB07}
+		{31B5AB6B-1283-408C-975A-66A2D5BDAB07} = {77E5783C-FDEF-4A1D-B70D-103B82396E5A}
+		{718C3B02-A26F-4195-8AD2-B614DBE40E5F} = {77E5783C-FDEF-4A1D-B70D-103B82396E5A}
 		{4A01E537-2717-44DF-B7F0-02149EE6E349} = {718C3B02-A26F-4195-8AD2-B614DBE40E5F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
