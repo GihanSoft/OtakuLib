@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using System.Windows.Threading;
 
 using OtakuLib.Logic.Pages;
 using OtakuLib.Logic.ViewModels;
@@ -14,14 +15,16 @@ public partial class PgMangaViewer : IPgMangaViewer
     {
         ViewModel = viewModel;
         InitializeComponent();
-        IsVisibleChanged += PgMangaViewer_IsVisibleChanged;
+        IsVisibleChanged += (_, _) => _ = IsVisibleChangedAsync();
     }
 
     public IPgMangaViewerVM ViewModel { get; }
 
-    private void PgMangaViewer_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    private async Task IsVisibleChangedAsync()
     {
+        await Dispatcher.Yield();
         ViewModel.FullScreenProvider.IsFullScreen = false;
+        grdToolbar.SetCurrentValue(HeightProperty, 32.0);
     }
 
     private void ZoomOutBtn_Click(object sender, RoutedEventArgs e)
