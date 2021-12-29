@@ -20,6 +20,8 @@ public static class Program
     {
         App app;
         Win win;
+        ServiceProvider? serviceProvider = null;
+
         try
         {
             var initializeTask = Task.Run(BackgroundThread);
@@ -29,7 +31,7 @@ public static class Program
             app.InitializeComponent();
 
 #pragma warning disable VSTHRD002 // Avoid problematic synchronous waits
-            using var serviceProvider = initializeTask.Result;
+            serviceProvider = initializeTask.Result;
 #pragma warning restore VSTHRD002 // Avoid problematic synchronous waits
 
             ActivatorUtilities.GetServiceOrCreateInstance<Bootstrap.InitializerUI>(serviceProvider)
@@ -43,6 +45,7 @@ public static class Program
                 logger.Error(ex, "startup error");
             }
 
+            serviceProvider?.Dispose();
             throw;
         }
 
@@ -58,6 +61,10 @@ public static class Program
             }
 
             throw;
+        }
+        finally
+        {
+            serviceProvider?.Dispose();
         }
     }
 
