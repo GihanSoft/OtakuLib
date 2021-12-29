@@ -10,8 +10,6 @@ namespace OtakuLib.Logic.ViewModels;
 
 internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
 {
-    private readonly IFullScreenProvider fullScreenProvider;
-
     private LibManga libManga;
     private IPagesViewer pagesViewer;
     private int chapter;
@@ -25,13 +23,14 @@ internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
         var defaultMangaViewerId = settings.Fetch().MangaLibSettings.DefaultMangaViewerId;
 
         AvailablePagesViewers = availablePagesViewers;
-        this.fullScreenProvider = fullScreenProvider;
+        FullScreenProvider = fullScreenProvider;
         pagesViewer = availablePagesViewers.FirstOrDefault(
             viewer => viewer.Id == defaultMangaViewerId,
             availablePagesViewers.First());
         libManga = LibManga.BlankLibManga;
     }
 
+    public IFullScreenProvider FullScreenProvider { get; }
     public IEnumerable<IPagesViewer> AvailablePagesViewers { get; }
 
     public IPagesViewer PagesViewer

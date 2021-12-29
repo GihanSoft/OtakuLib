@@ -8,12 +8,26 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:conv="clr-namespace:OtakuLib.WPF.XamlConverters"
   xmlns:hc="https://handyorg.github.io/handycontrol"
+  xmlns:pages="clr-namespace:OtakuLib.WPF.Pages"
   mc:Ignorable="d"
   d:DesignHeight="450" d:DesignWidth="800"
   DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}, Mode=OneTime}">
+  <gnav:Page.Resources>
+    <Storyboard x:Key="HideToolbarStoryboard">
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Height" Storyboard.Target="{Binding ElementName=GrdToolbar}">
+        <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="0" />
+      </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="ShowToolbarStoryboard">
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Height" Storyboard.Target="{Binding ElementName=GrdToolbar}">
+        <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="32" />
+      </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+  </gnav:Page.Resources>
   <DockPanel>
-    <Grid DockPanel.Dock="Top" Height="32" Background="{DynamicResource Bg}">
-      <StackPanel Orientation="Horizontal" Margin="1">
+    <Grid Name="grdToolbar" Height="32" DockPanel.Dock="Top" Background="{DynamicResource RegionBrush}">
+      <StackPanel Orientation="Horizontal" Margin="1" HorizontalAlignment="Left">
         <Button Content="{icon:Material Kind=BookArrowLeft}" Style="{DynamicResource toolBtn}" />
         <hc:ComboBox
           ItemsSource="{Binding LibManga.Chapters}"
@@ -64,6 +78,13 @@
           IsReadOnly="True"
           IsEditable="True">
         </hc:ComboBox>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="1" HorizontalAlignment="Right">
+        <Button
+          Style="{DynamicResource toolBtn}"
+          Content="{icon:Material Kind=Fullscreen}"
+          CommandParameter="{Binding FullScreenProvider.IsFullScreen, Converter={StaticResource Boolean2BooleanReConverter}}"
+          Command="{Binding FullScreenProvider.CmdSetFullScreen}" />
       </StackPanel>
     </Grid>
     <ContentPresenter Content="{Binding PagesViewer}" />

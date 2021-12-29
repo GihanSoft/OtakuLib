@@ -1,8 +1,9 @@
-﻿using System.Windows.Input;
+﻿using System.ComponentModel;
+using System.Windows.Input;
 
 namespace OtakuLib.Logic.Services;
 
-public interface IFullScreenProvider
+public interface IFullScreenProvider : INotifyPropertyChanged
 {
     bool IsFullScreen { get; set; }
 

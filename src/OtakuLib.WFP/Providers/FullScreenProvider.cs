@@ -1,5 +1,7 @@
 ﻿using System.Windows.Input;
+using System.Windows.Shell;
 
+using GihanSoft.AppBase;
 using GihanSoft.AppBase.Commands;
 
 using OtakuLib.Logic.Services;
@@ -8,7 +10,7 @@ using Window = HandyControl.Controls.Window;
 
 namespace OtakuLib.WPF.Providers;
 
-public class FullScreenProvider : IFullScreenProvider
+public class FullScreenProvider : ViewModelBase, IFullScreenProvider
 {
     public FullScreenProvider()
     {
@@ -27,6 +29,10 @@ public class FullScreenProvider : IFullScreenProvider
             }
 
             win.IsFullScreen = value;
+            var chrome = WindowChrome.GetWindowChrome(win);
+            chrome.ResizeBorderThickness = new Thickness(value ? 0 : 8);
+
+            OnPropertyChanged();
         }
     }
 

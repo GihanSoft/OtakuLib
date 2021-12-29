@@ -1,4 +1,6 @@
-﻿using OtakuLib.Logic.Pages;
+﻿using System.Windows.Input;
+
+using OtakuLib.Logic.Pages;
 using OtakuLib.Logic.ViewModels;
 
 namespace OtakuLib.WPF.Pages;
@@ -16,13 +18,32 @@ public partial class PgMangaViewer : IPgMangaViewer
 
     public IPgMangaViewerVM ViewModel { get; }
 
-    private void ZoomOutBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void ZoomOutBtn_Click(object sender, RoutedEventArgs e)
     {
         ViewModel.PagesViewer.ViewModel.Zoom -= 0.1;
     }
 
-    private void ZoomInBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void ZoomInBtn_Click(object sender, RoutedEventArgs e)
     {
         ViewModel.PagesViewer.ViewModel.Zoom += 0.1;
+    }
+
+    protected override void OnPreviewMouseMove(MouseEventArgs e)
+    {
+        base.OnPreviewMouseMove(e);
+        if (!ViewModel.FullScreenProvider.IsFullScreen)
+        {
+            return;
+        }
+
+        var position = Mouse.GetPosition(this);
+        if (position.Y <= 10)
+        {
+            grdToolbar.SetCurrentValue(HeightProperty, 32.0);
+        }
+        else if (!grdToolbar.IsMouseOver)
+        {
+            grdToolbar.SetCurrentValue(HeightProperty, 0.0);
+        }
     }
 }

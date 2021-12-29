@@ -75,22 +75,11 @@
           </hc:SplitButton.DropDownContent>
         </hc:SplitButton>
       </StackPanel>
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-        <Button
-          Content="{icon:Material Kind=Fullscreen}"
-          CommandParameter="{Binding IsFullScreen, ElementName=This, Converter={StaticResource Boolean2BooleanReConverter}}"
-          Command="{Binding FullScreenProvider.CmdSetFullScreen}" />
-      </StackPanel>
     </Grid>
   </hc:Window.NonClientAreaContent>
   <hc:Window.InputBindings>
     <KeyBinding Key="Left" Modifiers="Alt" Command="{Binding PageNavigator.CmdNavBack}" />
     <KeyBinding Key="Right" Modifiers="Alt" Command="{Binding PageNavigator.CmdNavForward}" />
-
-    <KeyBinding
-      Key="F11"
-      CommandParameter="{Binding IsFullScreen, ElementName=This, Converter={StaticResource Boolean2BooleanReConverter}}"
-      Command="{Binding FullScreenProvider.CmdSetFullScreen}" />
   </hc:Window.InputBindings>
   <ContentPresenter Focusable="False" Content="{Binding PageNavigator.CurrentPage}" />
 </hc:Window>
