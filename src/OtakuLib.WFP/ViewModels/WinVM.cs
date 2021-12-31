@@ -24,7 +24,7 @@ public class WinVM : ViewModelBase
             Manga = mangaSources.First()
                 .GetMangasAsync(
                     new PaginationInfo(0, string.Empty, 0),
-                    "spy")
+                    "feng")
                 .Result.First()
         }, 0);
         //page!.ViewModel.PagesViewer.ViewModel.PagesProvider = pagesProvider;

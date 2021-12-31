@@ -16,8 +16,8 @@ internal class PagesViewerVM : ViewModelBase, IPagesViewerVM
 
     public PagesViewerVM()
     {
-        CmdMoveToNextPage = DelegateCommand.Create(() => Page++);
-        CmdMoveToPreviousPage = DelegateCommand.Create(() => Page--);
+        CmdSetPage = DelegateCommand.Create((int? value) => Page = value ?? 1, value => value.HasValue);
+        CmdSetZoom = DelegateCommand.Create((double? value) => Zoom = value ?? 100, value => value.HasValue);
     }
 
     public PagesProvider? PagesProvider
@@ -65,9 +65,8 @@ internal class PagesViewerVM : ViewModelBase, IPagesViewerVM
         }
     }
 
-    public ICommand CmdMoveToNextPage { get; }
-
-    public ICommand CmdMoveToPreviousPage { get; }
+    public ICommand CmdSetPage { get; }
+    public ICommand CmdSetZoom { get; }
 
     public void CopyStateFrom(IPagesViewerVM pagesViewer)
     {

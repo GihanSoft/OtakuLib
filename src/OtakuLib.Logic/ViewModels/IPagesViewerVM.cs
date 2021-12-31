@@ -12,8 +12,9 @@ public interface IPagesViewerVM : INotifyPropertyChanged
     double Zoom { get; set; }
     double Offset { get; set; }
 
-    ICommand CmdMoveToNextPage { get; }
-    ICommand CmdMoveToPreviousPage { get; }
+    ICommand CmdSetPage { get; }
+
+    ICommand CmdSetZoom { get; }
 
     public void CopyStateFrom(IPagesViewerVM pagesViewer);
 }

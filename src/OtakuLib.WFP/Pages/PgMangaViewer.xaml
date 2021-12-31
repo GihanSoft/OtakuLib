@@ -8,43 +8,38 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:conv="clr-namespace:OtakuLib.WPF.XamlConverters"
   xmlns:hc="https://handyorg.github.io/handycontrol"
-  xmlns:pages="clr-namespace:OtakuLib.WPF.Pages"
   mc:Ignorable="d"
   d:DesignHeight="450" d:DesignWidth="800"
   DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}, Mode=OneTime}">
-  <gnav:Page.Resources>
-    <Storyboard x:Key="HideToolbarStoryboard">
-      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Height" Storyboard.Target="{Binding ElementName=GrdToolbar}">
-        <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="0" />
-      </DoubleAnimationUsingKeyFrames>
-    </Storyboard>
-
-    <Storyboard x:Key="ShowToolbarStoryboard">
-      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Height" Storyboard.Target="{Binding ElementName=GrdToolbar}">
-        <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="32" />
-      </DoubleAnimationUsingKeyFrames>
-    </Storyboard>
-  </gnav:Page.Resources>
   <DockPanel>
     <Grid Name="grdToolbar" Height="32" DockPanel.Dock="Top" Background="{DynamicResource RegionBrush}">
       <StackPanel Orientation="Horizontal" Margin="1" HorizontalAlignment="Left">
-        <Button Content="{icon:Material Kind=BookArrowLeft}" Style="{DynamicResource toolBtn}" />
+        <Button
+          Style="{DynamicResource toolBtn}"
+          Content="{icon:Material Kind=BookArrowLeft}"
+          CommandParameter="{Binding Chapter, Converter={x:Static conv:IntSumConverter.Default}, ConverterParameter=-1}"
+          Command="{Binding CmdMoveToChapter}" />
         <hc:ComboBox
           ItemsSource="{Binding LibManga.Chapters}"
           SelectedIndex="{Binding Chapter, Mode=TwoWay}"
           DisplayMemberPath="Title"
           Focusable="False"
           Width="200" />
-        <Button Content="{icon:Material Kind=BookArrowRight}" Style="{DynamicResource toolBtn}" />
+        <Button
+          Style="{DynamicResource toolBtn}"
+          Content="{icon:Material Kind=BookArrowRight}"
+          CommandParameter="{Binding Chapter, Converter={x:Static conv:IntSumConverter.Default}, ConverterParameter=1}"
+          Command="{Binding CmdMoveToChapter}" />
 
         <hc:Divider LineStrokeThickness="2" Orientation="Vertical" />
 
         <hc:TextBox
           Text="{Binding PagesViewer.ViewModel.Page,
-          Converter={x:Static conv:IntPlusPlusConverter.Default},
-          Mode=TwoWay,
-          UpdateSourceTrigger=PropertyChanged,
-          Delay=200}"
+            Converter={x:Static conv:IntSumConverter.Default},
+            ConverterParameter=1,
+            Mode=TwoWay,
+            UpdateSourceTrigger=PropertyChanged,
+            Delay=200}"
           Width="40"
           TextAlignment="Center" />
         <hc:SimpleText Text="/" VerticalAlignment="Center" Margin="5 0" />
@@ -55,20 +50,38 @@
         <Button
           Content="{icon:Material Kind=MagnifyMinusOutline}"
           Style="{DynamicResource toolBtn}"
-          Click="ZoomOutBtn_Click" />
+          CommandParameter="{Binding PagesViewer.ViewModel.Zoom, Converter={x:Static conv:DoubleSumConverter.Default}, ConverterParameter=-0.1}"
+          Command="{Binding PagesViewer.ViewModel.CmdSetZoom}" />
         <hc:TextBox
           Text="{Binding PagesViewer.ViewModel.Zoom,
-          Converter={x:Static conv:Number2Percentage.Default},
-          Mode=TwoWay,
-          UpdateSourceTrigger=PropertyChanged,
-          Delay=200}" />
+            Converter={x:Static conv:Number2Percentage.Default},
+            Mode=TwoWay,
+            UpdateSourceTrigger=PropertyChanged,
+            Delay=200}" />
         <Button
           Content="{icon:Material Kind=MagnifyPlusOutline}"
           Style="{DynamicResource toolBtn}"
-          Click="ZoomInBtn_Click" />
+          CommandParameter="{Binding PagesViewer.ViewModel.Zoom, Converter={x:Static conv:DoubleSumConverter.Default}, ConverterParameter=0.1}"
+          Command="{Binding PagesViewer.ViewModel.CmdSetZoom}" />
 
         <hc:Divider LineStrokeThickness="2" Orientation="Vertical" />
 
+        <Button
+          x:Name="btnLtr"
+          Style="{DynamicResource toolBtn}"
+          Content="{icon:Material Kind=PageNext}"
+          ToolTip="Left to right"
+          Click="Ltr_Click" />
+        <Button
+          x:Name="btnRtl"
+          Style="{DynamicResource toolBtn}"
+          Content="{icon:Material Kind=PagePreviousOutline}"
+          ToolTip="Right to Left"
+          Click="Rtl_Click" />
+
+        <hc:Divider LineStrokeThickness="2" Orientation="Vertical" />
+
+        <TextBlock Text="Viewer:" VerticalAlignment="Center" Margin="5 0" />
         <hc:ComboBox
           Width="200"
           Text="{Binding PagesViewer.Title, Mode=OneWay}"
@@ -82,11 +95,23 @@
       <StackPanel Orientation="Horizontal" Margin="1" HorizontalAlignment="Right">
         <Button
           Style="{DynamicResource toolBtn}"
-          Content="{icon:Material Kind=Fullscreen}"
           CommandParameter="{Binding FullScreenProvider.IsFullScreen, Converter={StaticResource Boolean2BooleanReConverter}}"
-          Command="{Binding FullScreenProvider.CmdSetFullScreen}" />
+          Command="{Binding FullScreenProvider.CmdSetFullScreen}">
+          <hc:ToggleBlock
+            IsChecked="{Binding FullScreenProvider.IsFullScreen}"
+            CheckedContent="{icon:Material Kind=FullscreenExit}"
+            UnCheckedContent="{icon:Material Kind=Fullscreen}" />
+        </Button>
       </StackPanel>
     </Grid>
-    <ContentPresenter Content="{Binding PagesViewer}" />
+    <Grid>
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" TextBlock.FontSize="16" Margin="10 0">
+        <TextBlock Text="{Binding PagesViewer.ViewModel.Page, Converter={x:Static conv:IntSumConverter.Default}, ConverterParameter=1}" />
+        <TextBlock Text="/" />
+        <TextBlock Text="{Binding PagesViewer.ViewModel.PagesProvider.Count}" />
+      </StackPanel>
+      <TextBlock x:Name="tbTime" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="16" Margin="10 0" />
+      <ContentPresenter x:Name="contentPresenter" Content="{Binding PagesViewer}" />
+    </Grid>
   </DockPanel>
 </gnav:Page>

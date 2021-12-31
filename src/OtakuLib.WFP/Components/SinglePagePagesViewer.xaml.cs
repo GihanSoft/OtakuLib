@@ -23,7 +23,38 @@ public partial class SinglePagePagesViewer : UserControl, IPagesViewer, INotifyP
         Title = "Single Page";
         ViewModel = pagesViewerVM;
         InitializeComponent();
-        ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+
+        IsVisibleChanged += SinglePagePagesViewer_IsVisibleChanged;
+    }
+
+    public IPagesViewerVM ViewModel { get; }
+
+    public string Id { get; }
+
+    public string Title { get; }
+
+    public ImageSource? ImageSource
+    {
+        get => imageSource;
+        set
+        {
+            imageSource = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImageSource)));
+        }
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    private void SinglePagePagesViewer_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (IsVisible)
+        {
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+        }
+        else
+        {
+            ViewModel.PropertyChanged -= ViewModel_PropertyChanged;
+        }
     }
 
     private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -57,24 +88,6 @@ public partial class SinglePagePagesViewer : UserControl, IPagesViewer, INotifyP
         }
     }
 
-    public IPagesViewerVM ViewModel { get; }
-
-    public string Id { get; }
-
-    public string Title { get; }
-
-    public ImageSource? ImageSource
-    {
-        get => imageSource;
-        set
-        {
-            imageSource = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImageSource)));
-        }
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
     private void ScrollViewer_PreviewKeyDown(object sender, KeyEventArgs e)
     {
         if (sender is not ScrollViewer scrollViewer)
@@ -95,7 +108,7 @@ public partial class SinglePagePagesViewer : UserControl, IPagesViewer, INotifyP
             case Key.Left or Key.A when !rtl && isHScrollStart:
             case Key.Right or Key.D when rtl && isHScrollStart:
             case Key.Up or Key.W when isVScrollStart:
-                ViewModel.CmdMoveToPreviousPage.Execute(null);
+                ViewModel.Page--;
                 scrollViewer.ScrollToRightEnd();
                 scrollViewer.ScrollToBottom();
                 break;
@@ -104,7 +117,7 @@ public partial class SinglePagePagesViewer : UserControl, IPagesViewer, INotifyP
             case Key.Left or Key.A when rtl && isHScrollEnd:
             case Key.Right or Key.D when !rtl && isHScrollEnd:
             case Key.Down or Key.S when isVScrollEnd:
-                ViewModel.CmdMoveToNextPage.Execute(null);
+                ViewModel.Page++;
                 scrollViewer.ScrollToHorizontalOffset(0);
                 scrollViewer.ScrollToVerticalOffset(0);
                 break;
@@ -148,27 +161,13 @@ public partial class SinglePagePagesViewer : UserControl, IPagesViewer, INotifyP
 
     private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
     {
-        if (sender is not ScrollViewer scrollViewer)
+        if (Keyboard.Modifiers != ModifierKeys.Control)
         {
             return;
         }
 
-        static async Task AsyncMothod(ScrollViewer scrollViewer, MouseWheelEventArgs e, IPagesViewerVM vm)
-        {
-            if (Keyboard.Modifiers != ModifierKeys.Control)
-            {
-                return;
-            }
-
-            vm.Zoom += 0.05 * (e.Delta > 0 ? 1 : -1);
-
-            await Dispatcher.Yield();
-
-            scrollViewer.ScrollToHorizontalOffset(scrollViewer.ScrollableWidth / 2);
-            scrollViewer.ScrollToVerticalOffset(scrollViewer.ScrollableHeight / 2);
-        }
-
-        _ = AsyncMothod(scrollViewer, e, ViewModel);
+        e.Handled = true;
+        ViewModel.Zoom += 0.05 * (e.Delta > 0 ? 1 : -1);
     }
 
     private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)

@@ -1,4 +1,7 @@
-﻿using GihanSoft.AppBase;
+﻿using System.Windows.Input;
+
+using GihanSoft.AppBase;
+using GihanSoft.AppBase.Commands;
 using GihanSoft.AppBase.Services;
 
 using OtakuLib.Logic.Components;
@@ -27,7 +30,12 @@ internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
         pagesViewer = availablePagesViewers.FirstOrDefault(
             viewer => viewer.Id == defaultMangaViewerId,
             availablePagesViewers.First());
+
         libManga = LibManga.BlankLibManga;
+
+        CmdMoveToChapter = DelegateCommand.Create(
+            chapter => Chapter = chapter ?? -1,
+            static (int? chapter) => chapter.HasValue);
     }
 
     public IFullScreenProvider FullScreenProvider { get; }
@@ -57,6 +65,11 @@ internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
         get => chapter;
         set
         {
+            if (value < 0 || value >= libManga.Chapters.Count)
+            {
+                return;
+            }
+
             pagesViewer.ViewModel.Page = 0;
             pagesViewer.ViewModel.PagesProvider = libManga.Chapters[value].GetPagesProvider();
             pagesViewer.ViewModel.Offset = 0;
@@ -75,6 +88,8 @@ internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
             OnPropertyChanged();
         }
     }
+
+    public ICommand CmdMoveToChapter { get; set; }
 
     public void SetLibManga(LibManga libManga, int chapter)
     {
