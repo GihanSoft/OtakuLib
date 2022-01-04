@@ -20,7 +20,7 @@ internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
 
     public PgMangaViewerVM(
         IEnumerable<IPagesViewer> availablePagesViewers,
-        IDataManager<MainSettings> settings,
+        IDataProvider<MainSettings> settings,
         IFullScreenProvider fullScreenProvider)
     {
         var defaultMangaViewerId = settings.Fetch().MangaLibSettings.DefaultMangaViewerId;

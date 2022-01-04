@@ -14,10 +14,10 @@ namespace OtakuLib.WPF;
 [CLSCompliant(false)]
 public sealed partial class Win
 {
-    private readonly IDataManager<WinState> dataProvider;
+    private readonly IDataProvider<WinState> dataProvider;
     private WindowState validWindowState;
 
-    public Win(WinVM viewModel, IDataManager<WinState> dataProvider)
+    public Win(WinVM viewModel, IDataProvider<WinState> dataProvider)
     {
         this.dataProvider = dataProvider;
         ViewModel = viewModel;

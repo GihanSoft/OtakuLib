@@ -8,7 +8,7 @@ using OtakuLib.Logic.Models;
 namespace OtakuLib.Logic.Services;
 
 [SuppressMessage("Build", "CA1812:never instantiated", Justification = "auto build service.")]
-internal class SettingsManager<TSetting> : IDataManager<TSetting>
+internal class DataProvider<TSetting> : IDataProvider<TSetting>
     where TSetting : class
 {
     private readonly AppDB db;
@@ -18,7 +18,7 @@ internal class SettingsManager<TSetting> : IDataManager<TSetting>
 
     private TSetting? cache;
 
-    public SettingsManager(AppDB db)
+    public DataProvider(AppDB db)
     {
         this.db = db;
 
@@ -70,6 +70,15 @@ internal class SettingsManager<TSetting> : IDataManager<TSetting>
         {
             _ = db.Settings.Upsert(settings);
             cache = setting;
+        }
+    }
+
+    public void Delete()
+    {
+        lock (locker)
+        {
+            _ = db.Settings.Delete(key);
+            cache = null;
         }
     }
 }

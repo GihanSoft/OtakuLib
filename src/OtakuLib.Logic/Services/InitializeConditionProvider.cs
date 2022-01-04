@@ -10,7 +10,7 @@ public class InitializeConditionProvider : IInitializeConditionProvider
     private readonly MainSettings? mainSettings;
     private readonly Version version;
 
-    public InitializeConditionProvider(IDataManager<MainSettings> settingsManager, Version version)
+    public InitializeConditionProvider(IDataProvider<MainSettings> settingsManager, Version version)
     {
         ArgumentNullException.ThrowIfNull(settingsManager);
         settingsManager.TryFetch(out mainSettings);

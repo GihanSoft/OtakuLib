@@ -7,11 +7,11 @@ namespace OtakuLib.Logic.Bootstrap;
 
 public class Initializer : IInitializer
 {
-    private readonly IDataManager<MainSettings> settingsManager;
+    private readonly IDataProvider<MainSettings> settingsManager;
     private readonly Version version;
 
     public Initializer(
-        IDataManager<MainSettings> settingsManager,
+        IDataProvider<MainSettings> settingsManager,
         Version version)
     {
         this.settingsManager = settingsManager;

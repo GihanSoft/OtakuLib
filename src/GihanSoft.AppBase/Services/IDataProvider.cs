@@ -1,6 +1,6 @@
 ﻿namespace GihanSoft.AppBase.Services;
 
-public interface IDataManager<TData>
+public interface IDataProvider<TData>
     where TData : class
 {
     TData Fetch();
@@ -8,4 +8,6 @@ public interface IDataManager<TData>
     bool TryFetch(out TData? setting);
 
     void Save(TData setting);
+
+    void Delete();
 }
