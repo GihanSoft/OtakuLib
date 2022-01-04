@@ -1,6 +1,5 @@
 ﻿<hc:Window
   x:Class="OtakuLib.WPF.Win"
-  x:FieldModifier="private"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,9 +9,8 @@
   xmlns:comp="clr-namespace:OtakuLib.WPF.Components"
   xmlns:hc="https://handyorg.github.io/handycontrol"
   mc:Ignorable="d"
-  x:Name="This"
   ShowTitle="False"
-  DataContext="{Binding ViewModel, ElementName=This}"
+  DataContext="{Binding ViewModel, Mode=OneTime, RelativeSource={RelativeSource Self}}"
   NonClientAreaHeight="30">
   <hc:Window.NonClientAreaContent>
     <Grid>
