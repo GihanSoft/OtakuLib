@@ -8,5 +8,5 @@ public interface IInitializer
 
     void Initialize();
 
-    void LateInitialize();
+    void ParallelLateInitialize();
 }

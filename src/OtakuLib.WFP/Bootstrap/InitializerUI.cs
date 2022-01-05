@@ -12,7 +12,7 @@ public class InitializerUI : IInitializer
     {
     }
 
-    public void LateInitialize()
+    public void ParallelLateInitialize()
     {
     }
 

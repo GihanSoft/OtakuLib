@@ -30,7 +30,7 @@ public class Initializer : IInitializer
     {
     }
 
-    public void LateInitialize()
+    public void ParallelLateInitialize()
     {
     }
 

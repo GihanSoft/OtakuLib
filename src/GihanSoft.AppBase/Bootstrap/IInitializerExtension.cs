@@ -21,6 +21,6 @@ public static class IInitializerExtension
 
         initializer.Initialize();
 
-        _ = Task.Run(() => initializer.LateInitialize()).ConfigureAwait(false);
+        _ = Task.Run(() => initializer.ParallelLateInitialize()).ConfigureAwait(false);
     }
 }
