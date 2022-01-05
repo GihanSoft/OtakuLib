@@ -32,7 +32,7 @@ public class ServiceSetup : IServiceSetup
         services.AddTransient<IInitializeConditionProvider, InitializeConditionProvider>();
         AddVersion(services);
         AddDatabase(services);
-        services.AddSingleton(typeof(IDataProvider<>), typeof(DataProvider<>));
+        services.AddSingleton(typeof(IDataManager<>), typeof(DataProvider<>));
         AddViewModels(services);
         services.AddSingleton<MangaSource, LocalMangaSource>();
     }

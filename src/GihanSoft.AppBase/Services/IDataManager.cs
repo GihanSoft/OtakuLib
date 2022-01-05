@@ -1,6 +1,6 @@
 ﻿namespace GihanSoft.AppBase.Services;
 
-public interface IDataProvider<TData>
+public interface IDataManager<TData>
     where TData : class
 {
     TData Fetch();

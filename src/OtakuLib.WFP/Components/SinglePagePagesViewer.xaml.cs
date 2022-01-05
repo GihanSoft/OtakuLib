@@ -2,11 +2,9 @@
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 
 using OtakuLib.Logic.Components;
 using OtakuLib.Logic.ViewModels;
-using OtakuLib.MangaSourceBase;
 
 namespace OtakuLib.WPF.Components;
 

@@ -19,25 +19,27 @@ public class ServiceSetup : IServiceSetup
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddSingleton<WinVM>();
-        services.AddScoped<PageNavigator>();
-        services.AddScoped<IPageNavigator>(serviceProvider => serviceProvider.GetRequiredService<PageNavigator>());
+        _ = services.AddSingleton<WinVM>();
+        _ = services
+            .AddScoped<PageNavigator>()
+            .AddScoped<IPageNavigator>(serviceProvider => serviceProvider.GetRequiredService<PageNavigator>());
+
+        _ = services.AddTransient<PgTabBrowse>();
 
         AddPages(services);
         AddPagesViewers(services);
-        services.AddTransient<PgTabBrowse>();
         AddProviders(services);
     }
 
     private static void AddProviders(IServiceCollection services)
     {
-        services.AddSingleton<IFullScreenProvider, FullScreenProvider>();
+        _ = services.AddSingleton<IFullScreenProvider, FullScreenProvider>();
     }
 
     private static void AddPagesViewers(IServiceCollection services)
     {
-        services.AddTransient<IPagesViewer, SinglePagePagesViewer>();
-        services.AddTransient<IPagesViewer, WebtoonPagesViewer>();
+        _ = services.AddTransient<IPagesViewer, SinglePagePagesViewer>();
+        _ = services.AddTransient<IPagesViewer, WebtoonPagesViewer>();
     }
 
     private static void AddPages(IServiceCollection services)

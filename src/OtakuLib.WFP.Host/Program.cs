@@ -2,6 +2,7 @@
 using System.Windows.Threading;
 
 using GihanSoft.AppBase.Bootstrap;
+using GihanSoft.AppBase.Exceptions;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

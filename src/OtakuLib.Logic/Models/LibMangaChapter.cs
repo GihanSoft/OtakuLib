@@ -1,17 +1,15 @@
-﻿using OtakuLib.MangaSourceBase;
+﻿namespace OtakuLib.Logic.Models;
 
-namespace OtakuLib.Logic.Models;
-
-public class LibMangaChapter
+public record LibMangaChapter
 {
-    public int Id { get; set; }
-    public string? Title { get; set; }
-    public int Status { get; set; }
-
-    public Chapter? Chapter { get; set; }
-
-    public PagesProvider GetPagesProvider()
+    public LibMangaChapter(string id, string title, int status)
     {
-        return Chapter?.GetPagesProviderAsync().ConfigureAwait(true).GetAwaiter().GetResult();
+        Id = id;
+        Title = title;
+        Status = status;
     }
+
+    public string Id { get; init; }
+    public string Title { get; init; }
+    public int Status { get; set; }
 }

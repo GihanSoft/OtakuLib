@@ -3,9 +3,9 @@
 namespace OtakuLib.Logic.Models;
 
 [CLSCompliant(false)]
-public record Setting(string Id, BsonValue Value)
+public record Data(string Id, BsonValue Value)
 {
-    public Setting()
+    public Data()
         : this(string.Empty, BsonValue.Null)
     {
     }

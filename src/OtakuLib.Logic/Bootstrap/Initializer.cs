@@ -7,20 +7,20 @@ namespace OtakuLib.Logic.Bootstrap;
 
 public class Initializer : IInitializer
 {
-    private readonly IDataProvider<MainSettings> settingsManager;
+    private readonly IDataManager<AppData> dataProvider;
     private readonly Version version;
 
     public Initializer(
-        IDataProvider<MainSettings> settingsManager,
+        IDataManager<AppData> dataProvider,
         Version version)
     {
-        this.settingsManager = settingsManager;
+        this.dataProvider = dataProvider;
         this.version = version;
     }
 
     public void FirstRunInitialize()
     {
-        settingsManager.Save(MainSettings.Default with
+        dataProvider.Save(AppData.Default with
         {
             Version = version.ToString(4)
         });
@@ -36,8 +36,8 @@ public class Initializer : IInitializer
 
     public void UpdateInitialize()
     {
-        var mainSettings = settingsManager.Fetch();
-        settingsManager.Save(mainSettings with
+        var data = dataProvider.Fetch();
+        dataProvider.Save(data with
         {
             Version = version.ToString(4)
         });

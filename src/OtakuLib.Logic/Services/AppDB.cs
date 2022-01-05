@@ -17,25 +17,27 @@ public class AppDB : IDisposable
 
     public ILiteDatabase Database { get; }
 
-    public ILiteCollection<Setting> Settings => Database.GetCollection<Setting>();
+    public ILiteCollection<Data> Datas => Database.GetCollection<Data>();
 
     private void Init()
     {
         // ToDo: set indexes
-        Settings.EnsureIndex(s => s.Id);
+        _ = Datas.EnsureIndex(s => s.Id);
     }
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!disposedValue)
+        if (disposedValue)
         {
-            if (disposing)
-            {
-                Database.Checkpoint();
-            }
-
-            disposedValue = true;
+            return;
         }
+
+        if (disposing)
+        {
+            Database.Checkpoint();
+        }
+
+        disposedValue = true;
     }
 
     public void Dispose()

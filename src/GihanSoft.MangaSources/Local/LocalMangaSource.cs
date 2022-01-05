@@ -19,7 +19,7 @@ public class LocalMangaSource : MangaSource
     {
         ArgumentNullException.ThrowIfNull(paginationInfo);
 
-        var result = Directory.EnumerateDirectories(@"D:\Entertainment\Manga")
+        var result = Directory.EnumerateDirectories(@"E:\Entertainment\Manga")
             .Select(path => LocalManga.Ctor(path, null) as Manga)
             .Skip(paginationInfo.ReceivedMangaCount)
             .Take(20);
@@ -30,7 +30,7 @@ public class LocalMangaSource : MangaSource
     {
         ArgumentNullException.ThrowIfNull(paginationInfo);
 
-        var result = Directory.EnumerateDirectories(@"D:\Entertainment\Manga")
+        var result = Directory.EnumerateDirectories(@"E:\Entertainment\Manga")
             .Where(path => Path.GetFileNameWithoutExtension(path).Contains(filters[0], StringComparison.OrdinalIgnoreCase))
             .Select(path => LocalManga.Ctor(path, null) as Manga)
             .Skip(paginationInfo.ReceivedMangaCount)

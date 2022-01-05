@@ -8,7 +8,7 @@ using OtakuLib.Logic.Models;
 namespace OtakuLib.Logic.Services;
 
 [SuppressMessage("Build", "CA1812:never instantiated", Justification = "auto build service.")]
-internal class DataProvider<TSetting> : IDataProvider<TSetting>
+internal class DataProvider<TSetting> : IDataManager<TSetting>
     where TSetting : class
 {
     private readonly AppDB db;
@@ -33,7 +33,7 @@ internal class DataProvider<TSetting> : IDataProvider<TSetting>
         {
             if (cache is null)
             {
-                var doc = db.Settings.FindOne(s => s.Id == key)?.Value;
+                var doc = db.Datas.FindOne(s => s.Id == key)?.Value;
                 if (doc is null)
                 {
                     setting = null;
@@ -65,10 +65,10 @@ internal class DataProvider<TSetting> : IDataProvider<TSetting>
         StringArgExceptionHelper.ThrowIfNullOrWhiteSpace(key);
         ArgumentNullException.ThrowIfNull(setting);
 
-        Setting settings = new(key, db.Database.Mapper.Serialize(setting));
+        Data settings = new(key, db.Database.Mapper.Serialize(setting));
         lock (locker)
         {
-            _ = db.Settings.Upsert(settings);
+            _ = db.Datas.Upsert(settings);
             cache = setting;
         }
     }
@@ -77,7 +77,7 @@ internal class DataProvider<TSetting> : IDataProvider<TSetting>
     {
         lock (locker)
         {
-            _ = db.Settings.Delete(key);
+            _ = db.Datas.Delete(key);
             cache = null;
         }
     }

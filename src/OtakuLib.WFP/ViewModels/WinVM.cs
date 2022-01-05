@@ -1,6 +1,7 @@
 ﻿using GihanSoft.AppBase;
 using GihanSoft.Navigation.WPF;
 
+using OtakuLib.Logic.Models;
 using OtakuLib.Logic.Pages;
 using OtakuLib.MangaSourceBase;
 
@@ -19,13 +20,15 @@ public class WinVM : ViewModelBase
         pageNavigator.NavTo<IPgMain>();
         pageNavigator.NavTo<IPgMangaViewer>();
         var page = pageNavigator.CurrentPage as IPgMangaViewer;
-        page!.ViewModel.SetLibManga(new Logic.Models.LibManga()
+        var manga = mangaSources.First()
+            .GetMangasAsync(
+                new PaginationInfo(0, string.Empty, 0),
+                "feng")
+            .Result.First();
+        page!.ViewModel.SetLibMangaAsync(new LibManga()
         {
-            Manga = mangaSources.First()
-                .GetMangasAsync(
-                    new PaginationInfo(0, string.Empty, 0),
-                    "feng")
-                .Result.First()
+            SourceId = mangaSources.First().Id,
+            Id = manga.Id,
         }, 0);
         //page!.ViewModel.PagesViewer.ViewModel.PagesProvider = pagesProvider;
     }

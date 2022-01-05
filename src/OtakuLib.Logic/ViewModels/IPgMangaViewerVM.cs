@@ -21,5 +21,5 @@ public interface IPgMangaViewerVM : INotifyPropertyChanged
 
     ICommand CmdMoveToChapter { get; set; }
 
-    public void SetLibManga(LibManga libManga, int chapter);
+    public Task SetLibMangaAsync(LibManga libManga, int chapter);
 }
