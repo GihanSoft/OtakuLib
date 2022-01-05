@@ -40,8 +40,16 @@ public class ServiceSetup : IServiceSetup
     public static void AddVersion(IServiceCollection services)
     {
         var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
-        var version = assembly.GetName().Version ?? throw new UnExpectedNullException();
-        services.AddSingleton(version);
+        var version = assembly.GetName().Version;
+#if DEBUG
+
+        if (version is null)
+        {
+            throw new UnExpectedNullException(nameof(version));
+        }
+
+#endif
+        _ = services.AddSingleton(version!);
     }
 
     private void AddDatabase(IServiceCollection services)
@@ -95,6 +103,7 @@ public class ServiceSetup : IServiceSetup
                     break;
             }
 
+#if DEBUG
             foreach (var def in interfaces)
             {
                 if (services.Count(t => t.ServiceType == def) > 1)
@@ -102,6 +111,7 @@ public class ServiceSetup : IServiceSetup
                     throw new UnExpectedException("two imp for an interface.");
                 }
             }
+#endif
         }
     }
 }

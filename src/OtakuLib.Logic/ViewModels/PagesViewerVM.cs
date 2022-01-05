@@ -26,7 +26,7 @@ internal class PagesViewerVM : ViewModelBase, IPagesViewerVM
         set
         {
             pagesProvider = value;
-            OnPropertyChanged();
+            NotifyPropertyChanged();
         }
     }
 
@@ -41,7 +41,7 @@ internal class PagesViewerVM : ViewModelBase, IPagesViewerVM
             }
 
             page = value;
-            OnPropertyChanged();
+            NotifyPropertyChanged();
         }
     }
 
@@ -51,7 +51,7 @@ internal class PagesViewerVM : ViewModelBase, IPagesViewerVM
         set
         {
             zoom = value;
-            OnPropertyChanged();
+            NotifyPropertyChanged();
         }
     }
 
@@ -61,7 +61,7 @@ internal class PagesViewerVM : ViewModelBase, IPagesViewerVM
         set
         {
             offset = value;
-            OnPropertyChanged();
+            NotifyPropertyChanged();
         }
     }
 

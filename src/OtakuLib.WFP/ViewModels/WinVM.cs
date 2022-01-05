@@ -41,7 +41,7 @@ public class WinVM : ViewModelBase
         set
         {
             isBackStackOpen = value;
-            OnPropertyChanged();
+            NotifyPropertyChanged();
         }
     }
 
@@ -51,7 +51,7 @@ public class WinVM : ViewModelBase
         set
         {
             isForwardStackOpen = value;
-            OnPropertyChanged();
+            NotifyPropertyChanged();
         }
     }
 }

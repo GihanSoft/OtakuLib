@@ -31,8 +31,8 @@ public static class Program
             app.DispatcherUnhandledException += OnDispatcherUnhandledException;
             app.InitializeComponent();
 
-#pragma warning disable VSTHRD002 // Avoid problematic synchronous waits
             serviceProvider = initializeTask.Result;
+#pragma warning disable VSTHRD002 // Avoid problematic synchronous waits
 #pragma warning restore VSTHRD002 // Avoid problematic synchronous waits
 
             ActivatorUtilities.GetServiceOrCreateInstance<Bootstrap.InitializerUI>(serviceProvider)
@@ -87,6 +87,10 @@ public static class Program
     private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
         Log.Logger.Error(e.Exception, "Dispatcher not handled exception");
+
+#if RELEASE
+        e.Handled = true;
+#endif
     }
 
     private static ServiceProvider BackgroundThread()

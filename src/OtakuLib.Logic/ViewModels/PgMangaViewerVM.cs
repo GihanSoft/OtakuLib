@@ -63,7 +63,7 @@ internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
             { LibManga.PagesViewerId = value.Id; }
 
             pagesViewer = value;
-            OnPropertyChanged();
+            NotifyPropertyChanged();
         }
     }
 
@@ -85,7 +85,7 @@ internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
             pagesViewer.ViewModel.Offset = 0;
 
             chapter = value;
-            OnPropertyChanged();
+            NotifyPropertyChanged();
         }
     }
 
@@ -95,7 +95,7 @@ internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
         set
         {
             showTopBar = value;
-            OnPropertyChanged();
+            NotifyPropertyChanged();
         }
     }
 
@@ -123,7 +123,7 @@ internal class PgMangaViewerVM : ViewModelBase, IPgMangaViewerVM
         }
 
         LibManga = libManga;
-        OnPropertyChanged(nameof(LibManga));
+        NotifyPropertyChanged(nameof(LibManga));
         Chapter = chapterIndex;
     }
 }

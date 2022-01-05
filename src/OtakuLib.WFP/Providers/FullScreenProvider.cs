@@ -32,7 +32,7 @@ public class FullScreenProvider : ViewModelBase, IFullScreenProvider
             var chrome = WindowChrome.GetWindowChrome(win);
             chrome.ResizeBorderThickness = new Thickness(value ? 0 : 8);
 
-            OnPropertyChanged();
+            NotifyPropertyChanged();
         }
     }
 

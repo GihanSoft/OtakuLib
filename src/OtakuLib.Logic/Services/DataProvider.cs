@@ -57,7 +57,7 @@ internal class DataProvider<TSetting> : IDataManager<TSetting>
             return setting!;
         }
 
-        throw new UnExpectedNullException("requested setting not found. use 'TryFetch' if you're not sure of setting existence.");
+        throw new InvalidOperationException("requested setting not found. use 'TryFetch' if you're not sure of setting existence.");
     }
 
     public void Save(TSetting setting)

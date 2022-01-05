@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿#if DEBUG
+
+using System.Runtime.Serialization;
 
 namespace GihanSoft.AppBase.Exceptions;
 
@@ -20,3 +22,5 @@ public class UnExpectedException : SystemException
       SerializationInfo info,
       StreamingContext context) : base(info, context) { }
 }
+
+#endif
